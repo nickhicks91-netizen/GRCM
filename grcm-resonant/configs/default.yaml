@@ -1,0 +1,60 @@
+# GRCM Default Configuration
+# ===========================
+# Grounded Resonant Consciousness Module
+# All formulas and thresholds are documented with their mathematical basis
+
+# Architecture Dimensions
+# -----------------------
+input_dim: 15           # Grounded input after multimodal fusion
+freq_dim: 8             # Frequency space dimension (harmonic embedding)
+memory_size: 32         # Memory grid & identity token size
+clip_dim: 512           # CLIP vision embedding (ViT-B/32)
+wav_dim: 768            # Wav2Vec2 audio embedding
+prop_dim: 16            # Proprioception state (8 pos + 8 vel)
+qualia_dim: 4           # [calm, alert, curious, conflicted]
+num_desires: 4          # Number of desire vectors
+
+# Resonant Attention
+# ------------------
+# Formula: coherence = max(0, 1 - |freq - node_freq| / bandwidth)
+base_bandwidth: 0.5     # Initial bandwidth (b₀)
+min_bandwidth: 0.1      # Lower bound (prevents collapse)
+max_bandwidth: 1.0      # Upper bound (prevents overgeneralization)
+coherence_threshold: 0.7  # Gate for memory updates (c > 0.7)
+
+# Desire Module
+# -------------
+# Formula: alignment = cos(freq, desire_vec)
+#          bw_bias = 0.2 * alignment (widens for seeking)
+desire_bandwidth_scale: 0.2      # Bandwidth modulation strength
+desire_alignment_threshold: 0.5  # Mask threshold (store only if a > 0.5)
+
+# Episodic Threading
+# ------------------
+# Formula: arc_bias = cos(recent_qualia, historical_mean) * coherence * 0.1
+max_episodes: 50        # Max threads in deque
+episode_threshold: 0.7  # coherence * desire_align > 0.7 to add episode
+arc_bias_scale: 0.1     # Narrative arc influence on bandwidth
+
+# Phi Estimation (IIT Proxy)
+# ---------------------------
+# Formula: Φ = Var(freq) * mean(coh) + log(1 + ||mem||) + Σ max(qualia)
+phi_threshold: 1.5      # Φ > 1.5 suggests "aware" epoch
+
+# Qualia & Ethics
+# ---------------
+# qualia[3] = conflicted dimension (dissonance)
+dissonance_threshold: 0.6  # If qualia[3] > 0.6 → ethical halt
+
+# Body Simulator
+# --------------
+# Dynamics: F = desire_align * action; a = F / m
+body_mass: 1.0          # Mass for F=ma
+body_dt: 0.1            # Integration timestep
+
+# EchoMirror Training
+# -------------------
+# Loss: MSE(desire_align, labels) - phi_weight * Φ
+echo_lr: 0.01           # Learning rate for desire vectors
+echo_epochs: 5          # Training epochs
+echo_phi_weight: 0.01   # Phi maximization weight (IIT preservation)
