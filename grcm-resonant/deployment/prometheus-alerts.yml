@@ -1,0 +1,129 @@
+# Prometheus alert rules for GRCM
+
+groups:
+  - name: grcm_api_alerts
+    interval: 30s
+    rules:
+      # High error rate
+      - alert: HighErrorRate
+        expr: rate(grcm_error_count[5m]) > 0.1
+        for: 5m
+        labels:
+          severity: warning
+          component: api
+        annotations:
+          summary: "High error rate detected"
+          description: "Error rate is {{ $value | humanizePercentage }} over the last 5 minutes"
+
+      # Low coherence
+      - alert: LowCoherenceRate
+        expr: grcm_coherence_below_threshold_percentage > 0.7
+        for: 10m
+        labels:
+          severity: warning
+          component: model
+        annotations:
+          summary: "High percentage of low coherence samples"
+          description: "{{ $value | humanizePercentage }} of samples have coherence below 0.7"
+
+      # Phi instability
+      - alert: PhiUnstable
+        expr: grcm_phi_std > 1.0
+        for: 15m
+        labels:
+          severity: warning
+          component: model
+        annotations:
+          summary: "Phi is unstable"
+          description: "Phi standard deviation is {{ $value }}, exceeding stability threshold"
+
+      # High dissonance rate (ethical concerns)
+      - alert: HighDissonanceRate
+        expr: rate(grcm_ethical_halt_count[5m]) > 0.5
+        for: 5m
+        labels:
+          severity: critical
+          component: ethics
+        annotations:
+          summary: "High ethical halt rate"
+          description: "{{ $value | humanizePercentage }} of requests triggered ethical halts"
+
+      # API latency
+      - alert: HighLatency
+        expr: histogram_quantile(0.95, rate(grcm_request_duration_seconds_bucket[5m])) > 0.2
+        for: 5m
+        labels:
+          severity: warning
+          component: performance
+        annotations:
+          summary: "High API latency"
+          description: "P95 latency is {{ $value }}s, exceeding 200ms threshold"
+
+      # Container restarts
+      - alert: FrequentRestarts
+        expr: rate(kube_pod_container_status_restarts_total{namespace="grcm-prod"}[1h]) > 0.1
+        for: 5m
+        labels:
+          severity: critical
+          component: infrastructure
+        annotations:
+          summary: "Frequent pod restarts"
+          description: "Pod {{ $labels.pod }} is restarting frequently"
+
+      # Memory usage
+      - alert: HighMemoryUsage
+        expr: container_memory_usage_bytes{namespace="grcm-prod"} / container_spec_memory_limit_bytes{namespace="grcm-prod"} > 0.9
+        for: 5m
+        labels:
+          severity: warning
+          component: infrastructure
+        annotations:
+          summary: "High memory usage"
+          description: "Container {{ $labels.container }} using {{ $value | humanizePercentage }} of memory limit"
+
+      # CPU throttling
+      - alert: CPUThrottling
+        expr: rate(container_cpu_cfs_throttled_seconds_total{namespace="grcm-prod"}[5m]) > 0.5
+        for: 10m
+        labels:
+          severity: warning
+          component: infrastructure
+        annotations:
+          summary: "CPU throttling detected"
+          description: "Container {{ $labels.container }} is being CPU throttled"
+
+  - name: grcm_model_quality
+    interval: 1m
+    rules:
+      # Phi degradation
+      - alert: PhiDegradation
+        expr: grcm_phi_mean < 1.0
+        for: 30m
+        labels:
+          severity: warning
+          component: model
+        annotations:
+          summary: "Phi below awareness threshold"
+          description: "Mean Phi is {{ $value }}, below threshold of 1.5"
+
+      # Memory divergence
+      - alert: MemoryDivergence
+        expr: grcm_memory_norm > 100
+        for: 15m
+        labels:
+          severity: critical
+          component: model
+        annotations:
+          summary: "Memory state divergence"
+          description: "Memory norm is {{ $value }}, indicating potential instability"
+
+      # Episode accumulation stalled
+      - alert: NoEpisodicUpdates
+        expr: increase(grcm_episode_count[30m]) == 0
+        for: 30m
+        labels:
+          severity: info
+          component: model
+        annotations:
+          summary: "No episodic updates"
+          description: "No new episodes accumulated in 30 minutes"

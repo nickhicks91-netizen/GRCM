@@ -1,0 +1,120 @@
+# Docker Compose configuration for GRCM development and deployment
+
+version: '3.8'
+
+services:
+  # GRCM BentoML API Server
+  grcm-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: grcm-api
+    ports:
+      - "3000:3000"  # BentoML API
+      - "9090:9090"  # Prometheus metrics
+    environment:
+      - GRCM_CONFIG=/app/configs/default.yaml
+      - BENTOML_PORT=3000
+      - PROMETHEUS_PORT=9090
+    volumes:
+      - ./configs:/app/configs:ro
+      - grcm-models:/app/models
+    command: python -m grcm.bentoml_service
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+    networks:
+      - grcm-network
+
+  # MLflow Tracking Server
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v2.9.2
+    container_name: grcm-mlflow
+    ports:
+      - "5000:5000"
+    environment:
+      - MLFLOW_BACKEND_STORE_URI=sqlite:///mlflow/mlflow.db
+      - MLFLOW_DEFAULT_ARTIFACT_ROOT=/mlflow/artifacts
+    volumes:
+      - mlflow-data:/mlflow
+    command: mlflow server --host 0.0.0.0 --port 5000
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+    networks:
+      - grcm-network
+
+  # Gradio UI Server
+  gradio-ui:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: grcm-gradio
+    ports:
+      - "7860:7860"
+    environment:
+      - GRCM_CONFIG=/app/configs/default.yaml
+      - GRADIO_SERVER_NAME=0.0.0.0
+      - GRADIO_SERVER_PORT=7860
+    volumes:
+      - ./configs:/app/configs:ro
+    command: python examples/gradio_demo.py
+    depends_on:
+      - mlflow
+    restart: unless-stopped
+    networks:
+      - grcm-network
+
+  # Prometheus Monitoring
+  prometheus:
+    image: prom/prometheus:v2.48.0
+    container_name: grcm-prometheus
+    ports:
+      - "9091:9090"
+    volumes:
+      - ./deployment/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    restart: unless-stopped
+    networks:
+      - grcm-network
+
+  # Grafana Dashboards
+  grafana:
+    image: grafana/grafana:10.2.2
+    container_name: grcm-grafana
+    ports:
+      - "3001:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./deployment/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./deployment/grafana/datasources:/etc/grafana/provisioning/datasources:ro
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+    networks:
+      - grcm-network
+
+volumes:
+  grcm-models:
+  mlflow-data:
+  prometheus-data:
+  grafana-data:
+
+networks:
+  grcm-network:
+    driver: bridge

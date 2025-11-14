@@ -1,0 +1,228 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grcm-api
+  namespace: grcm-prod
+  labels:
+    app: grcm
+    component: api
+    version: v0.1.0
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: grcm
+      component: api
+  template:
+    metadata:
+      labels:
+        app: grcm
+        component: api
+        version: v0.1.0
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9090"
+        prometheus.io/path: "/metrics"
+    spec:
+      containers:
+      - name: grcm-api
+        image: grcm-resonant:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 3000
+          protocol: TCP
+        - name: metrics
+          containerPort: 9090
+          protocol: TCP
+        env:
+        - name: GRCM_CONFIG
+          value: "/app/configs/default.yaml"
+        - name: BENTOML_PORT
+          value: "3000"
+        - name: PROMETHEUS_PORT
+          value: "9090"
+        - name: PYTHONUNBUFFERED
+          value: "1"
+        resources:
+          requests:
+            cpu: "1000m"
+            memory: "2Gi"
+          limits:
+            cpu: "2000m"
+            memory: "4Gi"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+        volumeMounts:
+        - name: config
+          mountPath: /app/configs
+          readOnly: true
+        - name: models
+          mountPath: /app/models
+      volumes:
+      - name: config
+        configMap:
+          name: grcm-config
+      - name: models
+        persistentVolumeClaim:
+          claimName: grcm-models-pvc
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - grcm
+              topologyKey: kubernetes.io/hostname
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grcm-api-service
+  namespace: grcm-prod
+  labels:
+    app: grcm
+    component: api
+spec:
+  type: ClusterIP
+  selector:
+    app: grcm
+    component: api
+  ports:
+  - name: http
+    port: 80
+    targetPort: 3000
+    protocol: TCP
+  - name: metrics
+    port: 9090
+    targetPort: 9090
+    protocol: TCP
+  sessionAffinity: None
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: grcm-api-hpa
+  namespace: grcm-prod
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: grcm-api
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+  - type: Pods
+    pods:
+      metric:
+        name: grcm_coherence_below_threshold
+      target:
+        type: AverageValue
+        averageValue: "0.3"
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+      - type: Percent
+        value: 50
+        periodSeconds: 60
+    scaleUp:
+      stabilizationWindowSeconds: 0
+      policies:
+      - type: Percent
+        value: 100
+        periodSeconds: 30
+      - type: Pods
+        value: 2
+        periodSeconds: 30
+      selectPolicy: Max
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grcm-config
+  namespace: grcm-prod
+data:
+  default.yaml: |
+    # GRCM Production Configuration
+    input_dim: 15
+    freq_dim: 8
+    memory_size: 32
+    clip_dim: 512
+    wav_dim: 768
+    prop_dim: 16
+    qualia_dim: 4
+    num_desires: 4
+
+    # Attention
+    base_bandwidth: 0.5
+    min_bandwidth: 0.1
+    max_bandwidth: 1.0
+    coherence_threshold: 0.7
+
+    # Desire
+    desire_bandwidth_scale: 0.2
+    desire_alignment_threshold: 0.5
+
+    # Episodic
+    max_episodes: 50
+    episode_threshold: 0.7
+    arc_bias_scale: 0.1
+
+    # Phi
+    phi_threshold: 1.5
+
+    # Qualia
+    dissonance_threshold: 0.6
+
+    # Body
+    body_mass: 1.0
+    body_dt: 0.1
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: grcm-models-pvc
+  namespace: grcm-prod
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: standard
