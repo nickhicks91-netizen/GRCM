@@ -55,6 +55,20 @@ try:
 except ImportError:
     _optimization_available = False
 
+# MLflow logging (optional)
+try:
+    from .mlflow_logger import GRCMMLflowLogger, create_mlflow_experiment
+    _mlflow_available = True
+except ImportError:
+    _mlflow_available = False
+
+# Gradio UI (optional)
+try:
+    from .gradio_ui import launch_grcm_ui, create_grcm_interface
+    _gradio_available = True
+except ImportError:
+    _gradio_available = False
+
 __all__ = [
     # Main
     "ResonantConsciousnessModule",
@@ -81,4 +95,18 @@ if _optimization_available:
         "test_onnx_inference",
         "GRCMBenchmark",
         "BenchmarkResult",
+    ])
+
+# Add MLflow to __all__ if available
+if _mlflow_available:
+    __all__.extend([
+        "GRCMMLflowLogger",
+        "create_mlflow_experiment",
+    ])
+
+# Add Gradio to __all__ if available
+if _gradio_available:
+    __all__.extend([
+        "launch_grcm_ui",
+        "create_grcm_interface",
     ])
