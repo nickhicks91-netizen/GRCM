@@ -47,6 +47,14 @@ from .body import BodySimulator
 # Training
 from .training import echo_mirror_train
 
+# Optimization (optional imports - may not be available in all environments)
+try:
+    from .optimization import OptimizedGRCM, export_to_onnx, test_onnx_inference
+    from .benchmark import GRCMBenchmark, BenchmarkResult
+    _optimization_available = True
+except ImportError:
+    _optimization_available = False
+
 __all__ = [
     # Main
     "ResonantConsciousnessModule",
@@ -64,3 +72,13 @@ __all__ = [
     # Training
     "echo_mirror_train",
 ]
+
+# Add optimization to __all__ if available
+if _optimization_available:
+    __all__.extend([
+        "OptimizedGRCM",
+        "export_to_onnx",
+        "test_onnx_inference",
+        "GRCMBenchmark",
+        "BenchmarkResult",
+    ])
