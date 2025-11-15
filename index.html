@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Children's Book PDF Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <h1>📚 Children's Book PDF Generator</h1>
+            <p>Create a print-ready PDF from your manuscript and illustrations</p>
+        </header>
+
+        <main>
+            <!-- Book Settings Section -->
+            <section class="settings-section">
+                <h2>Book Settings</h2>
+                <div class="settings-grid">
+                    <div class="form-group">
+                        <label for="trim-size">Trim Size:</label>
+                        <select id="trim-size">
+                            <option value="8.5x8.5">8.5" x 8.5" (Square)</option>
+                            <option value="8.5x11">8.5" x 11" (Portrait)</option>
+                            <option value="11x8.5">11" x 8.5" (Landscape)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="margin-input">Margins (inches):</label>
+                        <input type="number" id="margin-input" min="0" max="2" step="0.1" value="0.5">
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="bleed-checkbox">
+                        <label for="bleed-checkbox">Full Bleed Illustrations</label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- File Uploads Section -->
+            <section class="uploads-section">
+                <h2>File Uploads</h2>
+                <div class="uploads-grid">
+                    <div class="form-group">
+                        <label for="manuscript-upload">Manuscript (.txt):</label>
+                        <input type="file" id="manuscript-upload" accept=".txt">
+                        <span class="file-hint">Upload your manuscript (pages separated by double line breaks)</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="image-upload">Illustrations:</label>
+                        <input type="file" id="image-upload" accept="image/*" multiple>
+                        <span class="file-hint">Upload all illustrations (one per page, in order)</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Generate Section -->
+            <section class="generate-section">
+                <button id="generate-btn" type="button">Generate PDF</button>
+            </section>
+
+            <!-- Status Section -->
+            <section class="status-section">
+                <div id="status-message"></div>
+            </section>
+        </main>
+
+        <footer>
+            <p>All processing happens in your browser. Your files never leave your device.</p>
+        </footer>
+    </div>
+
+    <!-- jsPDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- Application Script -->
+    <script src="script.js"></script>
+</body>
+</html>
