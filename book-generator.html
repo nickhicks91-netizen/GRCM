@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Children's Book PDF Generator</title>
+    <style>
+        /* CSS Reset and Variables */
+        :root {
+            --primary-color: #4a90e2;
+            --primary-hover: #357abd;
+            --background-color: #f5f7fa;
+            --card-background: #ffffff;
+            --text-color: #333333;
+            --text-secondary: #666666;
+            --border-color: #e0e0e0;
+            --success-color: #4caf50;
+            --error-color: #f44336;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        /* Main Wrapper */
+        .wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--card-background);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), #5ba3f5);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Main Content */
+        main {
+            padding: 2rem;
+        }
+
+        section {
+            margin-bottom: 2rem;
+        }
+
+        section:last-of-type {
+            margin-bottom: 0;
+        }
+
+        h2 {
+            font-size: 1.3rem;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        /* Settings Grid */
+        .settings-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .checkbox-group {
+            grid-column: 1 / -1;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Uploads Grid */
+        .uploads-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        /* Form Groups */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: var(--text-color);
+            font-size: 0.95rem;
+        }
+
+        .checkbox-group label {
+            font-weight: 500;
+        }
+
+        .file-hint {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        /* Form Inputs */
+        select,
+        input[type="number"],
+        input[type="file"] {
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        select:focus,
+        input[type="number"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+        }
+
+        input[type="file"] {
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        input[type="file"]::file-selector-button {
+            padding: 0.5rem 1rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-right: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="file"]::file-selector-button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        input[type="checkbox"] {
+            width: 1.2rem;
+            height: 1.2rem;
+            cursor: pointer;
+            accent-color: var(--primary-color);
+        }
+
+        /* Generate Section */
+        .generate-section {
+            display: flex;
+            justify-content: center;
+            padding: 1rem 0;
+        }
+
+        #generate-btn {
+            padding: 1rem 3rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+            background: linear-gradient(135deg, var(--primary-color), #5ba3f5);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
+        }
+
+        #generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+            background: linear-gradient(135deg, var(--primary-hover), var(--primary-color));
+        }
+
+        #generate-btn:active {
+            transform: translateY(0);
+        }
+
+        #generate-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Status Section */
+        .status-section {
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #status-message {
+            padding: 1rem;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: 500;
+            min-width: 100%;
+        }
+
+        #status-message:not(:empty) {
+            background-color: #e3f2fd;
+            border: 1px solid #90caf9;
+            color: #1976d2;
+        }
+
+        #status-message.error {
+            background-color: #ffebee;
+            border: 1px solid #ef5350;
+            color: #c62828;
+        }
+
+        #status-message.success {
+            background-color: #e8f5e9;
+            border: 1px solid #66bb6a;
+            color: #2e7d32;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--background-color);
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 640px) {
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            main {
+                padding: 1.5rem;
+            }
+
+            #generate-btn {
+                padding: 0.875rem 2rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <h1>📚 Children's Book PDF Generator</h1>
+            <p>Create a print-ready PDF from your manuscript and illustrations</p>
+        </header>
+
+        <main>
+            <!-- Book Settings Section -->
+            <section class="settings-section">
+                <h2>Book Settings</h2>
+                <div class="settings-grid">
+                    <div class="form-group">
+                        <label for="trim-size">Trim Size:</label>
+                        <select id="trim-size">
+                            <option value="8.5x8.5">8.5" x 8.5" (Square)</option>
+                            <option value="8.5x11">8.5" x 11" (Portrait)</option>
+                            <option value="11x8.5">11" x 8.5" (Landscape)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="margin-input">Margins (inches):</label>
+                        <input type="number" id="margin-input" min="0" max="2" step="0.1" value="0.5">
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="bleed-checkbox">
+                        <label for="bleed-checkbox">Full Bleed Illustrations</label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- File Uploads Section -->
+            <section class="uploads-section">
+                <h2>File Upload</h2>
+                <div class="uploads-grid">
+                    <div class="form-group">
+                        <label for="files-upload">Upload All Files:</label>
+                        <input type="file" id="files-upload" accept=".txt,image/*" multiple>
+                        <span class="file-hint">Upload your manuscript (.txt) and all illustrations (images) in one go. Images will be sorted alphabetically by filename.</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Generate Section -->
+            <section class="generate-section">
+                <button id="generate-btn" type="button">Generate PDF</button>
+            </section>
+
+            <!-- Status Section -->
+            <section class="status-section">
+                <div id="status-message"></div>
+            </section>
+        </main>
+
+        <footer>
+            <p>All processing happens in your browser. Your files never leave your device.</p>
+        </footer>
+    </div>
+
+    <!-- jsPDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <!-- Application Script -->
+    <script>
+        // Children's Book PDF Generator
+        // All processing happens client-side in the browser
+
+        document.addEventListener('DOMContentLoaded', init);
+
+        // Element selectors
+        let trimSizeSelect;
+        let marginInput;
+        let bleedCheckbox;
+        let filesUpload;
+        let generateBtn;
+        let statusMessage;
+
+        /**
+         * Initialize the application
+         */
+        function init() {
+            console.log('Initializing application...');
+
+            // Get references to all interactive elements
+            trimSizeSelect = document.getElementById('trim-size');
+            marginInput = document.getElementById('margin-input');
+            bleedCheckbox = document.getElementById('bleed-checkbox');
+            filesUpload = document.getElementById('files-upload');
+            generateBtn = document.getElementById('generate-btn');
+            statusMessage = document.getElementById('status-message');
+
+            console.log('Generate button:', generateBtn);
+            console.log('jsPDF available:', !!window.jspdf);
+
+            // Add event listener to the generate button
+            if (generateBtn) {
+                generateBtn.addEventListener('click', buildBook);
+                console.log('Event listener attached');
+            } else {
+                console.error('Generate button not found!');
+            }
+        }
+
+        /**
+         * Main function to build the PDF book
+         */
+        async function buildBook() {
+            console.log('buildBook function called!');
+
+            try {
+                // Clear previous status
+                setStatus('Gathering settings...', 'info');
+
+                // Get settings
+                const trimSizeValue = trimSizeSelect.value;
+                const [widthStr, heightStr] = trimSizeValue.split('x');
+                const width = parseFloat(widthStr);
+                const height = parseFloat(heightStr);
+                const margin = parseFloat(marginInput.value);
+                const bleed = bleedCheckbox.checked;
+
+                // Get all uploaded files
+                const allFiles = Array.from(filesUpload.files);
+
+                // Validation - check if any files were uploaded
+                if (allFiles.length === 0) {
+                    setStatus('Error: Please upload files (manuscript and illustrations).', 'error');
+                    return;
+                }
+
+                // Separate text files from image files
+                setStatus('Organizing files...', 'info');
+
+                const textFiles = allFiles.filter(file => file.type === 'text/plain' || file.name.endsWith('.txt'));
+                const imageFiles = allFiles.filter(file => file.type.startsWith('image/'));
+
+                // Validation
+                if (textFiles.length === 0) {
+                    setStatus('Error: Please upload at least one manuscript file (.txt).', 'error');
+                    return;
+                }
+
+                if (imageFiles.length === 0) {
+                    setStatus('Error: Please upload at least one illustration.', 'error');
+                    return;
+                }
+
+                // Sort image files alphabetically by filename
+                imageFiles.sort((a, b) => a.name.localeCompare(b.name));
+
+                // Disable button during processing
+                generateBtn.disabled = true;
+
+                // Read files
+                setStatus('Loading files...', 'info');
+
+                // Read all text files and combine them
+                const textContents = await Promise.all(textFiles.map(file => file.text()));
+                const manuscriptText = textContents.join('\n\n');
+
+                const imageDataPromises = imageFiles.map(file => readFileAsDataURL(file));
+                const imageDataURLs = await Promise.all(imageDataPromises);
+
+                // Parse manuscript
+                setStatus('Parsing manuscript...', 'info');
+
+                // Split manuscript by double line breaks
+                const textPages = manuscriptText.split('\n\n').filter(page => page.trim().length > 0);
+
+                // Validate page count
+                if (textPages.length !== imageFiles.length) {
+                    setStatus(
+                        `Error: Manuscript has ${textPages.length} pages but ${imageFiles.length} images were uploaded. They must match.`,
+                        'error'
+                    );
+                    generateBtn.disabled = false;
+                    return;
+                }
+
+                // Initialize PDF
+                setStatus('Initializing PDF...', 'info');
+
+                // Check if jsPDF is loaded
+                if (!window.jspdf) {
+                    throw new Error('jsPDF library failed to load. Please refresh the page.');
+                }
+
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF({
+                    unit: 'in',
+                    format: [width, height]
+                });
+
+                // Process each page
+                for (let i = 0; i < textPages.length; i++) {
+                    setStatus(`Processing page ${i + 1}/${textPages.length}...`, 'info');
+
+                    // Add new page (except for the first one)
+                    if (i > 0) {
+                        doc.addPage();
+                    }
+
+                    // Load image and get dimensions
+                    const imageData = await loadImage(imageDataURLs[i]);
+
+                    // Add image to page
+                    await addImageToPage(doc, imageData, width, height, margin, bleed);
+
+                    // Add text to page
+                    addTextToPage(doc, textPages[i], width, height, margin);
+                }
+
+                // Save PDF
+                setStatus('Finalizing PDF...', 'info');
+                doc.save('my-childrens-book.pdf');
+
+                setStatus('Done! Your book has been downloaded.', 'success');
+                generateBtn.disabled = false;
+
+            } catch (error) {
+                console.error('Error generating PDF:', error);
+                console.error('Error stack:', error.stack);
+                setStatus(`Error: ${error.message}`, 'error');
+                generateBtn.disabled = false;
+            }
+        }
+
+        /**
+         * Read a file as a Data URL
+         * @param {File} file - The file to read
+         * @returns {Promise<string>} - Promise that resolves with the data URL
+         */
+        function readFileAsDataURL(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+
+                reader.onload = (e) => {
+                    resolve(e.target.result);
+                };
+
+                reader.onerror = (e) => {
+                    reject(new Error(`Failed to read file: ${file.name}`));
+                };
+
+                reader.readAsDataURL(file);
+            });
+        }
+
+        /**
+         * Load an image and get its dimensions
+         * @param {string} dataURL - The image data URL
+         * @returns {Promise<Object>} - Promise that resolves with image data and dimensions
+         */
+        function loadImage(dataURL) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+
+                img.onload = () => {
+                    resolve({
+                        dataURL: dataURL,
+                        width: img.naturalWidth,
+                        height: img.naturalHeight
+                    });
+                };
+
+                img.onerror = () => {
+                    reject(new Error('Failed to load image'));
+                };
+
+                img.src = dataURL;
+            });
+        }
+
+        /**
+         * Add image to PDF page with proper sizing
+         * @param {jsPDF} doc - The PDF document
+         * @param {Object} imageData - Image data with dataURL, width, height
+         * @param {number} pageWidth - Page width in inches
+         * @param {number} pageHeight - Page height in inches
+         * @param {number} margin - Margin in inches
+         * @param {boolean} bleed - Whether to use full bleed
+         */
+        function addImageToPage(doc, imageData, pageWidth, pageHeight, margin, bleed) {
+            const imgAspectRatio = imageData.width / imageData.height;
+
+            let x, y, imgWidth, imgHeight;
+
+            if (bleed) {
+                // Full bleed: fill entire page, potentially cropping
+                const pageAspectRatio = pageWidth / pageHeight;
+
+                if (imgAspectRatio > pageAspectRatio) {
+                    // Image is wider than page - fit to height
+                    imgHeight = pageHeight;
+                    imgWidth = imgHeight * imgAspectRatio;
+                    x = (pageWidth - imgWidth) / 2;
+                    y = 0;
+                } else {
+                    // Image is taller than page - fit to width
+                    imgWidth = pageWidth;
+                    imgHeight = imgWidth / imgAspectRatio;
+                    x = 0;
+                    y = (pageHeight - imgHeight) / 2;
+                }
+            } else {
+                // No bleed: fit image within margins
+                const availableWidth = pageWidth - (margin * 2);
+                const availableHeight = pageHeight - (margin * 2);
+                const availableAspectRatio = availableWidth / availableHeight;
+
+                if (imgAspectRatio > availableAspectRatio) {
+                    // Image is wider - fit to available width
+                    imgWidth = availableWidth;
+                    imgHeight = imgWidth / imgAspectRatio;
+                    x = margin;
+                    y = margin + (availableHeight - imgHeight) / 2;
+                } else {
+                    // Image is taller - fit to available height
+                    imgHeight = availableHeight;
+                    imgWidth = imgHeight * imgAspectRatio;
+                    x = margin + (availableWidth - imgWidth) / 2;
+                    y = margin;
+                }
+            }
+
+            // Add image to PDF
+            doc.addImage(imageData.dataURL, 'JPEG', x, y, imgWidth, imgHeight);
+        }
+
+        /**
+         * Add text to PDF page
+         * @param {jsPDF} doc - The PDF document
+         * @param {string} text - The text to add
+         * @param {number} pageWidth - Page width in inches
+         * @param {number} pageHeight - Page height in inches
+         * @param {number} margin - Margin in inches
+         */
+        function addTextToPage(doc, text, pageWidth, pageHeight, margin) {
+            // Set font properties
+            doc.setFontSize(14);
+            doc.setTextColor(0, 0, 0);
+
+            // Calculate text area dimensions
+            const textWidth = pageWidth - (margin * 2);
+            const textX = margin;
+
+            // Position text at the bottom of the page
+            // We'll place it near the bottom, leaving some space
+            const textY = pageHeight - margin - 0.5;
+
+            // Split text into lines that fit within the width
+            const lines = doc.splitTextToSize(text.trim(), textWidth);
+
+            // Calculate total text height
+            const lineHeight = 0.2; // inches
+            const totalTextHeight = lines.length * lineHeight;
+
+            // Adjust Y position to account for multiple lines (move up from bottom)
+            const adjustedY = textY - totalTextHeight + lineHeight;
+
+            // Add text with wrapping
+            doc.text(lines, textX, adjustedY, {
+                maxWidth: textWidth,
+                align: 'left'
+            });
+        }
+
+        /**
+         * Set status message
+         * @param {string} message - The message to display
+         * @param {string} type - The type of message ('info', 'success', 'error')
+         */
+        function setStatus(message, type = 'info') {
+            statusMessage.textContent = message;
+            statusMessage.className = '';
+
+            if (type === 'success') {
+                statusMessage.classList.add('success');
+            } else if (type === 'error') {
+                statusMessage.classList.add('error');
+            }
+        }
+    </script>
+</body>
+</html>
