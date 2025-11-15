@@ -3,9 +3,6 @@
 
 document.addEventListener('DOMContentLoaded', init);
 
-// Initialize jsPDF
-const { jsPDF } = window.jspdf;
-
 // Element selectors
 let trimSizeSelect;
 let marginInput;
@@ -106,6 +103,13 @@ async function buildBook() {
 
         // Initialize PDF
         setStatus('Initializing PDF...', 'info');
+
+        // Check if jsPDF is loaded
+        if (!window.jspdf) {
+            throw new Error('jsPDF library failed to load. Please refresh the page.');
+        }
+
+        const { jsPDF } = window.jspdf;
         const doc = new jsPDF({
             unit: 'in',
             format: [width, height]
