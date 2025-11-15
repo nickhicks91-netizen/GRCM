@@ -15,6 +15,8 @@ let statusMessage;
  * Initialize the application
  */
 function init() {
+    console.log('Initializing application...');
+
     // Get references to all interactive elements
     trimSizeSelect = document.getElementById('trim-size');
     marginInput = document.getElementById('margin-input');
@@ -23,14 +25,24 @@ function init() {
     generateBtn = document.getElementById('generate-btn');
     statusMessage = document.getElementById('status-message');
 
+    console.log('Generate button:', generateBtn);
+    console.log('jsPDF available:', !!window.jspdf);
+
     // Add event listener to the generate button
-    generateBtn.addEventListener('click', buildBook);
+    if (generateBtn) {
+        generateBtn.addEventListener('click', buildBook);
+        console.log('Event listener attached');
+    } else {
+        console.error('Generate button not found!');
+    }
 }
 
 /**
  * Main function to build the PDF book
  */
 async function buildBook() {
+    console.log('buildBook function called!');
+
     try {
         // Clear previous status
         setStatus('Gathering settings...', 'info');
@@ -143,6 +155,7 @@ async function buildBook() {
 
     } catch (error) {
         console.error('Error generating PDF:', error);
+        console.error('Error stack:', error.stack);
         setStatus(`Error: ${error.message}`, 'error');
         generateBtn.disabled = false;
     }
