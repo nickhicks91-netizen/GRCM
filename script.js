@@ -10,8 +10,7 @@ const { jsPDF } = window.jspdf;
 let trimSizeSelect;
 let marginInput;
 let bleedCheckbox;
-let manuscriptUpload;
-let imageUpload;
+let filesUpload;
 let generateBtn;
 let statusMessage;
 
@@ -23,8 +22,7 @@ function init() {
     trimSizeSelect = document.getElementById('trim-size');
     marginInput = document.getElementById('margin-input');
     bleedCheckbox = document.getElementById('bleed-checkbox');
-    manuscriptUpload = document.getElementById('manuscript-upload');
-    imageUpload = document.getElementById('image-upload');
+    filesUpload = document.getElementById('files-upload');
     generateBtn = document.getElementById('generate-btn');
     statusMessage = document.getElementById('status-message');
 
@@ -48,13 +46,24 @@ async function buildBook() {
         const margin = parseFloat(marginInput.value);
         const bleed = bleedCheckbox.checked;
 
-        // Get files
-        const manuscriptFile = manuscriptUpload.files[0];
-        const imageFiles = Array.from(imageUpload.files);
+        // Get all uploaded files
+        const allFiles = Array.from(filesUpload.files);
+
+        // Validation - check if any files were uploaded
+        if (allFiles.length === 0) {
+            setStatus('Error: Please upload files (manuscript and illustrations).', 'error');
+            return;
+        }
+
+        // Separate text files from image files
+        setStatus('Organizing files...', 'info');
+
+        const textFiles = allFiles.filter(file => file.type === 'text/plain' || file.name.endsWith('.txt'));
+        const imageFiles = allFiles.filter(file => file.type.startsWith('image/'));
 
         // Validation
-        if (!manuscriptFile) {
-            setStatus('Error: Please upload a manuscript file.', 'error');
+        if (textFiles.length === 0) {
+            setStatus('Error: Please upload at least one manuscript file (.txt).', 'error');
             return;
         }
 
@@ -63,13 +72,19 @@ async function buildBook() {
             return;
         }
 
+        // Sort image files alphabetically by filename
+        imageFiles.sort((a, b) => a.name.localeCompare(b.name));
+
         // Disable button during processing
         generateBtn.disabled = true;
 
         // Read files
         setStatus('Loading files...', 'info');
 
-        const manuscriptText = await manuscriptFile.text();
+        // Read all text files and combine them
+        const textContents = await Promise.all(textFiles.map(file => file.text()));
+        const manuscriptText = textContents.join('\n\n');
+
         const imageDataPromises = imageFiles.map(file => readFileAsDataURL(file));
         const imageDataURLs = await Promise.all(imageDataPromises);
 

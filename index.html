@@ -41,18 +41,12 @@
 
             <!-- File Uploads Section -->
             <section class="uploads-section">
-                <h2>File Uploads</h2>
+                <h2>File Upload</h2>
                 <div class="uploads-grid">
                     <div class="form-group">
-                        <label for="manuscript-upload">Manuscript (.txt):</label>
-                        <input type="file" id="manuscript-upload" accept=".txt">
-                        <span class="file-hint">Upload your manuscript (pages separated by double line breaks)</span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="image-upload">Illustrations:</label>
-                        <input type="file" id="image-upload" accept="image/*" multiple>
-                        <span class="file-hint">Upload all illustrations (one per page, in order)</span>
+                        <label for="files-upload">Upload All Files:</label>
+                        <input type="file" id="files-upload" accept=".txt,image/*" multiple>
+                        <span class="file-hint">Upload your manuscript (.txt) and all illustrations (images) in one go. Images will be sorted alphabetically by filename.</span>
                     </div>
                 </div>
             </section>
