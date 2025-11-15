@@ -1,0 +1,16 @@
+# DEAP dataset configuration
+
+name: deap
+data_dir: ./data/deap
+seq_len: 1024
+num_channels: 1
+num_classes: 2
+
+# Use synthetic data (set to false when real DEAP data is available)
+use_synthetic: true
+
+# Data augmentation (future)
+augmentation:
+  enabled: false
+  noise_std: 0.01
+  time_shift: 0.1
