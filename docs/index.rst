@@ -1,6 +1,12 @@
 GRCM: Grounded Resonant Consciousness Module
 ============================================
 
+.. warning::
+   **CONFIDENTIAL & PROPRIETARY**
+
+   This documentation describes proprietary trade secret technology.
+   NOT for public distribution. Authorized access only.
+
 .. image:: https://img.shields.io/badge/python-3.9%2B-blue
    :target: https://www.python.org/downloads/
    :alt: Python Version
@@ -9,11 +15,9 @@ GRCM: Grounded Resonant Consciousness Module
    :target: https://pytorch.org/
    :alt: PyTorch
 
-.. image:: https://img.shields.io/badge/license-MIT-green
-   :target: LICENSE
-   :alt: License
+GRCM is a **proprietary implementation** of a Grounded Resonant Consciousness Module that simulates consciousness dynamics through resonant attention mechanisms, integrated information theory (Φ), and ethical grounding.
 
-GRCM is a production-ready implementation of a **Grounded Resonant Consciousness Module** that simulates consciousness dynamics through resonant attention mechanisms, integrated information theory (Φ), and ethical grounding.
+**Note**: Historical documentation below may reference open-source concepts from earlier development phases. Current status is PROPRIETARY.
 
 .. contents:: Table of Contents
    :depth: 3

@@ -62,20 +62,17 @@ EXTRAS_REQUIRE["all"] = list(set(sum(EXTRAS_REQUIRE.values(), [])))
 setup(
     name="grcm",
     version=VERSION,
-    author="GRCM Contributors",
-    author_email="",
-    description="Grounded Resonant Consciousness Module - Production-ready consciousness simulation with resonant attention",
+    author="[Your Name]",
+    author_email="[Your Email]",
+    description="PROPRIETARY - Grounded Resonant Consciousness Module - Confidential Trade Secret",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/nickhicks91-netizen/newdew",
+    url="",  # Proprietary - not publicly available
     packages=find_packages(exclude=['tests', 'tests.*', 'examples', 'examples.*', 'docs', 'docs.*', 'deployment', 'deployment.*']),
     classifiers=[
         "Development Status :: 4 - Beta",
-        "Intended Audience :: Science/Research",
         "Intended Audience :: Developers",
         "Topic :: Scientific/Engineering :: Artificial Intelligence",
-        "Topic :: Scientific/Engineering :: Information Analysis",
-        "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
@@ -108,10 +105,5 @@ setup(
         "phi",
         "qualia",
     ],
-    project_urls={
-        "Documentation": "https://grcm.readthedocs.io",
-        "Source": "https://github.com/nickhicks91-netizen/newdew",
-        "Bug Reports": "https://github.com/nickhicks91-netizen/newdew/issues",
-        "Discussions": "https://github.com/nickhicks91-netizen/newdew/discussions",
-    },
+    project_urls={},  # Proprietary - no public URLs
 )

@@ -71,3 +71,4 @@ docs/_templates/
 
 # Distribution / packaging
 *.whl
+*.zip
