@@ -1,0 +1,26 @@
+{
+  "grcm": {
+    "latency_ms": 1.175747670000078,
+    "memory_mb": 0.05780792236328125,
+    "flops": 81314,
+    "energy_mj": 0.0081314,
+    "parameters": 15122
+  },
+  "baseline": {
+    "latency_ms": 1.5949959800047964,
+    "memory_mb": 3.1592559814453125,
+    "flops": 12419072,
+    "energy_mj": 1.2419072,
+    "parameters": 828180
+  },
+  "efficiency_gains": {
+    "speedup": 1.3565801750682531,
+    "memory_reduction_pct": 98.17020454490569,
+    "flop_reduction_pct": 99.34524898478728,
+    "energy_savings_pct": 99.34524898478728
+  },
+  "test_config": {
+    "batch_size": 4,
+    "num_iterations": 100
+  }
+}

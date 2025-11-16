@@ -54,6 +54,8 @@ from .optimization import GRCMOptimizer, create_optimized_model
 
 from .benchmark import GRCMBenchmark, BenchmarkConfig, quick_benchmark
 
+from .comparison import ModelComparator, ComparisonResult
+
 from .logging import MLflowLogger, GRCMExperiment, quick_mlflow_experiment
 
 from .ui import GRCMInterface, create_gradio_ui, launch_ui
@@ -84,6 +86,8 @@ __all__ = [
     'GRCMBenchmark',
     'BenchmarkConfig',
     'quick_benchmark',
+    'ModelComparator',
+    'ComparisonResult',
 
     # Logging & Visualization
     'MLflowLogger',

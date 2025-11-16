@@ -275,6 +275,165 @@ class GRCMBenchmark:
         self.results['memory'] = result
         return result
 
+    def count_flops(
+        self,
+        batch_size: int = 1,
+        use_profiler: bool = True
+    ) -> Dict[str, Any]:
+        """
+        Count FLOPs for GRCM forward pass
+
+        Args:
+            batch_size: Batch size for FLOP counting
+            use_profiler: Use torch.profiler (requires PyTorch 2.0+)
+
+        Returns:
+            FLOP statistics
+        """
+        print("\n" + "=" * 60)
+        print("FLOP Counting")
+        print("=" * 60)
+
+        inputs = self._prepare_inputs(batch_size)
+
+        if use_profiler and hasattr(torch.profiler, 'profile'):
+            try:
+                with torch.profiler.profile(
+                    activities=[torch.profiler.ProfilerActivity.CPU],
+                    with_flops=True
+                ) as prof:
+                    with torch.no_grad():
+                        _ = self.model(*inputs)
+
+                # Get total FLOPs from profiler
+                total_flops = sum(
+                    [event.flops for event in prof.key_averages() if event.flops > 0]
+                )
+
+                result = {
+                    'total_flops': int(total_flops),
+                    'flops_per_sample': int(total_flops / batch_size),
+                    'method': 'torch.profiler'
+                }
+
+                print(f"  Total FLOPs: {total_flops:,}")
+                print(f"  FLOPs per sample: {total_flops / batch_size:,.0f}")
+                print(f"  Method: torch.profiler")
+
+            except Exception as e:
+                print(f"  Profiler failed ({e}), using manual estimation")
+                result = self._estimate_flops_manual(batch_size)
+        else:
+            result = self._estimate_flops_manual(batch_size)
+
+        self.results['flops'] = result
+        return result
+
+    def _estimate_flops_manual(self, batch_size: int) -> Dict[str, Any]:
+        """Manual FLOP estimation (fallback)"""
+        total_flops = 0
+
+        for name, module in self.model.named_modules():
+            if isinstance(module, torch.nn.Linear):
+                in_features = module.in_features
+                out_features = module.out_features
+                # Multiply-add counts as 2 FLOPs
+                total_flops += 2 * in_features * out_features * batch_size
+
+            elif isinstance(module, torch.nn.MultiheadAttention):
+                embed_dim = module.embed_dim
+                # Rough estimate: Q*K^T + softmax + attention*V
+                total_flops += 4 * (embed_dim ** 2) * batch_size
+
+            elif isinstance(module, torch.nn.GRUCell):
+                hidden_size = module.hidden_size
+                input_size = module.input_size
+                # GRU has 3 gates, each with 2 matrix multiplications
+                total_flops += 6 * (input_size + hidden_size) * hidden_size * batch_size
+
+        result = {
+            'total_flops': int(total_flops),
+            'flops_per_sample': int(total_flops / batch_size),
+            'method': 'manual_estimation'
+        }
+
+        print(f"  Total FLOPs: {total_flops:,}")
+        print(f"  FLOPs per sample: {total_flops / batch_size:,.0f}")
+        print(f"  Method: manual estimation")
+
+        return result
+
+    def estimate_energy(
+        self,
+        batch_size: int = 1,
+        platform: str = "A100",
+        num_inferences: int = 1000000
+    ) -> Dict[str, Any]:
+        """
+        Estimate energy consumption
+
+        Args:
+            batch_size: Batch size
+            platform: Hardware platform (A100, V100, CPU)
+            num_inferences: Number of inferences to estimate for
+
+        Returns:
+            Energy statistics
+        """
+        print("\n" + "=" * 60)
+        print("Energy Estimation")
+        print("=" * 60)
+
+        # Get or compute FLOPs
+        if 'flops' not in self.results:
+            flop_result = self.count_flops(batch_size)
+        else:
+            flop_result = self.results['flops']
+
+        flops_per_sample = flop_result['flops_per_sample']
+
+        # Energy per FLOP varies by hardware (in picojoules/FLOP)
+        energy_per_flop = {
+            'A100': 1.0,    # ~300W / 312 TFLOPS = ~1 pJ/FLOP
+            'V100': 2.0,    # ~300W / 125 TFLOPS = ~2.4 pJ/FLOP
+            'CPU': 100.0,   # ~100W / 1 TFLOPS = ~100 pJ/FLOP
+        }
+
+        pj_per_flop = energy_per_flop.get(platform, 10.0)
+
+        # Energy per inference (millijoules)
+        energy_per_inference_mj = (flops_per_sample * pj_per_flop) / 1e9
+
+        # Total energy for num_inferences
+        total_energy_kwh = (energy_per_inference_mj * num_inferences) / (1000 * 3600)
+
+        # Annual energy (assuming 1B inferences/day)
+        inferences_per_day = 1e9
+        inferences_per_year = inferences_per_day * 365
+        annual_energy_kwh = (energy_per_inference_mj * inferences_per_year) / (1000 * 3600)
+
+        # Cost (at $0.10/kWh)
+        cost_per_kwh = 0.10
+        annual_cost = annual_energy_kwh * cost_per_kwh
+
+        result = {
+            'platform': platform,
+            'energy_per_inference_mj': energy_per_inference_mj,
+            'energy_per_1M_inferences_kwh': (energy_per_inference_mj * 1e6) / (1000 * 3600),
+            'annual_energy_kwh': annual_energy_kwh,
+            'annual_cost_usd': annual_cost,
+            'flops_per_inference': flops_per_sample
+        }
+
+        print(f"  Platform: {platform}")
+        print(f"  Energy per inference: {energy_per_inference_mj:.3f} mJ")
+        print(f"  Energy per 1M inferences: {result['energy_per_1M_inferences_kwh']:.2f} kWh")
+        print(f"  Annual energy (1B inferences/day): {annual_energy_kwh/1e6:.2f} million kWh")
+        print(f"  Annual cost (@ $0.10/kWh): ${annual_cost/1e6:.2f}M")
+
+        self.results['energy'] = result
+        return result
+
     def benchmark_coherence_distribution(self, num_samples: int = 100) -> Dict[str, Any]:
         """
         Analyze coherence score distribution
