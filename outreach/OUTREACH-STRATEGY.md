@@ -13,25 +13,22 @@ Elon won't see cold email. But if the right engineer at xAI/Tesla sees the 32x b
 ### Target List (xAI Engineers)
 
 **Tier 1 (Most likely to understand + escalate):**
-1. **Igor Babuschkin** - xAI founding engineer (ex-DeepMind, worked on efficiency)
-   - X: @babchenko
-   - Likely email: igor@xai.com or igor.babuschkin@xai.com
-   - Why: Deep technical background, understands scaling laws
+1. **Greg Yang** - xAI (μP/Tensor Programs expert) ⭐ PRIMARY TARGET
+   - X: @TheGregYang
+   - Likely email: greg@xai.com or gregyang@xai.com
+   - Why: **PERFECT TARGET** - His entire research is scaling laws and Tensor Programs
+   - Background: Developed μP (maximal update parametrization) used in GPT-4
+   - Will INSTANTLY understand O(n²×d) → O(n×d) implications
+   - Active researcher, publishes on scaling, currently at xAI working on "Math for AI"
 
 2. **Toby Pohlen** - xAI founding engineer (ex-DeepMind)
-   - X: @TobyPohlen
-   - Likely email: toby@xai.com
-   - Why: Research background, will recognize architectural innovation
+   - X: @TobyPhln (corrected handle)
+   - Likely email: toby@xai.com or tobypohlen@xai.com
+   - Why: Founding member, 6+ years at DeepMind as staff research engineer
+   - Leading London team, active on X
+   - Will recognize architectural innovation
 
-3. **Ross Nordeen** - xAI early engineer
-   - X: @rossnordeen
-   - Likely email: ross@xai.com
-   - Why: Active on X, engaged with technical community
-
-4. **Greg Yang** - xAI (μP/Tensor Programs expert)
-   - X: @TheGregYang
-   - Likely email: greg@xai.com
-   - Why: Literally studies scaling laws, will understand exponential efficiency
+**Note:** Igor Babuschkin left xAI in August 2025 to start his own VC firm (Babuschkin Ventures). Do NOT contact him.
 
 **Tier 2 (Tesla AI team - FSD application):**
 5. **Ashok Elluswamy** - Tesla AI Director

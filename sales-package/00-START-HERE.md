@@ -79,42 +79,44 @@ This isn't just for xAI - **1,000,000x efficiency transforms every Musk company:
 
 ## The Offer
 
-**$500M cash + 0.5% equity for exclusive ownership**
+**$221M cash + 1.5% equity for exclusive ownership**
+
+**Why This Structure (Equity-Heavy):**
+- **Aligned with your preference:** 72% equity in Twitter deal (this is ~80% equity)
+- **Preserves cash:** Save $279M vs $500M (deploy to Starship/Colossus instead)
+- **Shows confidence:** I'm betting on the upside, not extracting cash
+- **Perfect alignment:** My 1.5% only grows if GRCM transforms your companies
 
 **Cash Component:**
-- $500M paid on closing (after 7-day validation passes)
+- $221M paid on closing (after 7-day validation passes)
 - Full refund if validation shows <10x speedup
 - Your risk: minimal (can validate before committing)
 
 **Equity Component:**
-- 0.5% across portfolio companies (0.15% xAI, 0.15% Tesla, 0.1% SpaceX, 0.05% Neuralink, 0.05% Boring)
+- 1.5% across portfolio companies
+  - 0.4% xAI, 0.4% Tesla, 0.35% SpaceX, 0.25% Neuralink, 0.1% Boring
 - Immediate vesting (no cliff)
-- Current value: ~$3-5B at today's valuations
-- Future value: Potentially $10B+ if L5/Mars/wireless BCI succeed
+- Current value: ~$4.1B at today's valuations
+- Future value: $10B+ if L5/Mars/wireless BCI succeed
 
 **What's Included:**
 - All code + IP (trade secret, never patented)
 - 12-month integration support (remote, 20 hrs/week)
 - Deployment across all companies (zero restrictions)
-
-**Why Equity, Not Royalties:**
-- Aligned incentives (I win when ecosystem wins)
-- No tracking/disputes (clean one-time grant)
-- Tax-efficient (20% capital gains vs 37%+ income)
-- Zero friction on deployment decisions
+- No royalties, no tracking, no friction
 
 **Timeline:**
 - This week: Technical demo
 - Next week: 7-day validation test
 - 30 days: Close + deploy
 
-**Urgency:** Microsoft meeting scheduled Friday
+**Urgency:** Microsoft actively acquiring AI efficiency tech (Inflection: $650M, Character.AI: $2B)
 
 ## ROI Calculation (Full Ecosystem)
 
 **Investment:**
-- $500M cash (immediate)
-- 0.5% equity (dilutes slightly, but ecosystem grows)
+- $221M cash (immediate)
+- 1.5% equity ($4.1B current value, dilutive but ecosystem grows)
 
 **Value Created:**
 - xAI: $33.5B saved (datacenters eliminated)
@@ -124,7 +126,9 @@ This isn't just for xAI - **1,000,000x efficiency transforms every Musk company:
 - Boring: $5B+ (10x tunneling speed)
 - **Total: $125B+ over 5 years**
 
-**ROI: 25,000% on cash alone** (not counting equity upside)
+**Your ROI: If GRCM creates $125B value, you paid $4.3B total (2% cost, 98% value capture)**
+
+**My incentive: If this enables Tesla L5 → my 1.5% = $10B. If it doesn't work → I left money on table.**
 
 **At 1Mx efficiency, you don't need datacenters at all.**
 

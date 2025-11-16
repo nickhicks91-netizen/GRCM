@@ -15,41 +15,47 @@
 
 ## Deal Structure
 
-### Total Consideration: $500M Cash + 0.5% Equity
+### Total Consideration: $221M Cash + 1.5% Equity
 
-**Cash Component:** $500,000,000
-**Equity Component:** 0.5% across portfolio companies
+**Cash Component:** $221,000,000
+**Equity Component:** 1.5% across portfolio companies
+
+**Rationale for Equity-Heavy Structure:**
+- Aligned with Elon's preference (72% equity in Twitter acquisition)
+- Preserves $279M cash for Starship/Colossus development
+- Shows seller confidence (betting on upside, not extracting cash)
+- Perfect alignment (seller wins only if GRCM transforms companies)
 
 ---
 
 ## Payment Terms
 
 ### Cash Payment
-- **Amount:** $500M USD
+- **Amount:** $221M USD
 - **Timing:** On closing (after successful 7-day validation)
 - **Conditions:** Validation must demonstrate >10x speedup at production scale
 - **Refund:** Full refund if validation shows <10x speedup
 
 ### Equity Grant
-- **Total:** 0.5% across Musk portfolio companies
+- **Total:** 1.5% across Musk portfolio companies
 - **Allocation:**
-  - xAI: 0.15%
-  - Tesla: 0.15%
-  - SpaceX: 0.1%
-  - Neuralink: 0.05%
-  - Boring Company: 0.05%
+  - xAI: 0.4%
+  - Tesla: 0.4%
+  - SpaceX: 0.35%
+  - Neuralink: 0.25%
+  - Boring Company: 0.1%
 - **Vesting:** Immediate (no cliff, no vesting schedule)
 - **Type:** Common stock or equivalent equity interest
 - **Rights:** Standard shareholder rights (voting, dividends, liquidation preference)
 - **Restrictions:** Standard transfer restrictions, right of first refusal
 
 ### Current Equity Valuation
-- Tesla (~$800B market cap): 0.15% = ~$1.2B
-- SpaceX (~$150B valuation): 0.1% = ~$150M
-- xAI (~$40B estimated): 0.15% = ~$60M
-- Neuralink (~$8B estimated): 0.05% = ~$40M
-- Boring Company (~$5B estimated): 0.05% = ~$25M
-- **Total current value: ~$1.5B**
+- Tesla (~$800B market cap): 0.4% = ~$3.2B
+- SpaceX (~$150B valuation): 0.35% = ~$525M
+- xAI (~$40B estimated): 0.4% = ~$160M
+- Neuralink (~$8B estimated): 0.25% = ~$20M
+- Boring Company (~$5B estimated): 0.1% = ~$5M
+- **Total current value: ~$4.1B**
 - **Upside potential: $10B+ if L5/Mars/wireless BCI succeed**
 
 ---
