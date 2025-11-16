@@ -1,0 +1,67 @@
+{
+  "tiny": {
+    "grcm_params": 7861,
+    "baseline_params": 200276,
+    "param_ratio": 25.477165754993003,
+    "speedup": 0.7548714950007009,
+    "memory_reduction_pct": 96.066927639857,
+    "flop_reduction_pct": 98.03988613409004,
+    "energy_savings_pct": 98.03988613409004,
+    "grcm_latency_ms": 1.3780261500016877,
+    "baseline_latency_ms": 1.0402326600018341,
+    "grcm_flops": 52166,
+    "baseline_flops": 2661376
+  },
+  "small": {
+    "grcm_params": 13457,
+    "baseline_params": 828180,
+    "param_ratio": 61.54269153600357,
+    "speedup": 1.249071248215849,
+    "memory_reduction_pct": 98.37124779637277,
+    "flop_reduction_pct": 99.4516337452589,
+    "energy_savings_pct": 99.4516337452589,
+    "grcm_latency_ms": 1.2884093700000676,
+    "baseline_latency_ms": 1.6093150999989803,
+    "grcm_flops": 68102,
+    "baseline_flops": 12419072
+  },
+  "medium": {
+    "grcm_params": 35401,
+    "baseline_params": 3756820,
+    "param_ratio": 106.12186096437954,
+    "speedup": 0.6578400011908566,
+    "memory_reduction_pct": 99.0559835179753,
+    "flop_reduction_pct": 99.78026503103264,
+    "energy_savings_pct": 99.78026503103264,
+    "grcm_latency_ms": 4.346863880002729,
+    "baseline_latency_ms": 2.859540939997487,
+    "grcm_flops": 130694,
+    "baseline_flops": 59478016
+  },
+  "large": {
+    "grcm_params": 122297,
+    "baseline_params": 20634132,
+    "param_ratio": 168.72148948870372,
+    "speedup": 3.1774704126354965,
+    "memory_reduction_pct": 99.40668693987224,
+    "flop_reduction_pct": 99.88626329629807,
+    "energy_savings_pct": 99.88626329629807,
+    "grcm_latency_ms": 1.5309782400026961,
+    "baseline_latency_ms": 4.864638059997333,
+    "grcm_flops": 378758,
+    "baseline_flops": 333012992
+  },
+  "xlarge": {
+    "grcm_params": 468121,
+    "baseline_params": 106306580,
+    "param_ratio": 227.09209798321373,
+    "speedup": 7.684173282784752,
+    "memory_reduction_pct": 99.55940921060578,
+    "flop_reduction_pct": 99.92070925004427,
+    "energy_savings_pct": 99.92070925004427,
+    "grcm_latency_ms": 1.4553554999935159,
+    "baseline_latency_ms": 11.18320385000402,
+    "grcm_flops": 1366406,
+    "baseline_flops": 1723285504
+  }
+}
