@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+  grcm-demo:
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+    image: grcm:sales-demo
+    container_name: grcm-comparison-demo
+    command: python examples/comparison_demo.py
+    volumes:
+      - ../../comparison_results:/app/comparison_results
+    environment:
+      - PYTHONUNBUFFERED=1
+    networks:
+      - grcm-net
+
+  grcm-scaling:
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+    image: grcm:sales-demo
+    container_name: grcm-scaling-analysis
+    command: python examples/scaling_comparison.py
+    volumes:
+      - ../../comparison_results:/app/comparison_results
+    environment:
+      - PYTHONUNBUFFERED=1
+    networks:
+      - grcm-net
+
+  grcm-mega:
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+    image: grcm:sales-demo
+    container_name: grcm-mega-scale-test
+    command: python examples/mega_scale_test.py
+    volumes:
+      - ../../comparison_results:/app/comparison_results
+    environment:
+      - PYTHONUNBUFFERED=1
+    networks:
+      - grcm-net
+
+  grcm-api:
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+    image: grcm:sales-demo
+    container_name: grcm-api-server
+    command: python service.py
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - HOST=0.0.0.0
+      - PORT=8000
+    networks:
+      - grcm-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+networks:
+  grcm-net:
+    driver: bridge
