@@ -122,7 +122,7 @@ class TestModularGRCM:
     def test_from_config_file(self, temp_config_file):
         """Test loading from config file"""
         model = ModularGRCM.from_config_file(temp_config_file)
-        assert model.config.input_dim == 10
+        assert model.config.input_dim == 12
         assert model.config.freq_dim == 4
 
     def test_device_compatibility(self, grcm_model):

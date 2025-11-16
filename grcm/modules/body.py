@@ -76,7 +76,12 @@ class BodySimulator:
         state[:, :self.pos_dim] = state[:, :self.pos_dim] + state[:, self.pos_dim:] * self.dt
 
         # Update internal state with first sample only (maintain single state)
-        self.state = state[:1].clone()
+        # Only update internal state when not tracking gradients to avoid breaking computation graph
+        if not torch.is_grad_enabled():
+            self.state = state[:1].clone()
+        else:
+            # During training, update using detached tensor to preserve gradients
+            self.state = state[:1].detach().clone()
 
         return state
 
@@ -129,4 +134,5 @@ class BodySimulator:
         Args:
             damping_factor: Velocity multiplier (< 1.0)
         """
-        self.state[:, self.pos_dim:] *= damping_factor
+        self.state = self.state.clone()
+        self.state[:, self.pos_dim:] = self.state[:, self.pos_dim:] * damping_factor

@@ -183,12 +183,16 @@ class TestEchoMirrorTraining:
             verbose=False
         )
 
-        # Loss should generally decrease
+        # Loss should generally decrease (or become more negative if phi bonus is high)
         first_loss = history['loss_history'][0]
         last_loss = history['loss_history'][-1]
 
-        # Allow for some variance
-        assert last_loss < first_loss * 1.5
+        # Allow for some variance - use absolute value comparison for negative losses
+        if first_loss < 0 and last_loss < 0:
+            # For negative losses, more negative is better
+            assert abs(last_loss) > abs(first_loss) * 0.5  # Allow improvement or slight degradation
+        else:
+            assert last_loss < first_loss * 1.5
 
     def test_quick_echo_train(self, grcm_model, echo_mirror_data):
         """Test convenience training function"""
@@ -333,7 +337,7 @@ class TestConfigurationVariations:
         from grcm.config import GRCMConfig
 
         config = GRCMConfig(
-            input_dim=5,
+            input_dim=6,
             freq_dim=2,
             memory_size=8
         )

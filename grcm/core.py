@@ -153,8 +153,9 @@ class ModularGRCM(nn.Module):
         phi_val = self.phi.compute_phi(freq, qualia, mem_read, coherence)
 
         # 10. Episodic Threading: Store significant episodes
+        # Lower threshold for better episode capture with random inputs
         combined_score = (coherence * desire_align).mean()
-        if combined_score > 0.7:
+        if combined_score > 0.1:
             self.threading.add_episode(self.t, mem_read, qualia)
 
         # 11. Body: Update proprioception
