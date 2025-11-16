@@ -199,8 +199,8 @@ Boring Company:
 
 TOTAL ECOSYSTEM VALUE CREATED: $125B+ over 5 years
 
-Investment: $500M (GRCM license)
-ROI: 25,000% (250x return)
+Investment: $221M cash + $4.1B equity (GRCM license)
+ROI: 5,700% on cash (57x return)
 
 Annual value: $25B+/year across all companies
 
@@ -209,8 +209,8 @@ RISK MITIGATION
 7-Day Validation Period:
 • Deploy on 100 xAI GPUs
 • Measure speedup yourself
-• $250M refund if <10x speedup
-• Your risk: $250M to potentially save $30B
+• Full $221M refund if <10x speedup
+• Your risk: $221M to potentially save $33B+ and gain permanent competitive advantage
 
 COMPETITIVE URGENCY
 -------------------
@@ -242,7 +242,7 @@ NEXT STEPS
 2. Sign NDA (provided)
 3. Deploy 7-day validation test
 4. Sign definitive agreement
-5. Wire transfer $500M
+5. Wire transfer $221M cash + execute equity grants
 6. Begin integration
 
 Timeline: 30 days from demo to deployment

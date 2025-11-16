@@ -212,7 +212,8 @@ This document outlines how GRCM creates strategic advantage across the entire Mu
 | Boring | $3B (automation) | $5B (market creation) | **$8B** |
 | **TOTAL** | **$53B** | **$95B** | **$148B** |
 
-**ROI on $500M investment: 29,600% (296x return over 5 years)**
+**ROI on $221M cash investment: 56,500% (565x return over 5 years)**
+*Note: Total investment including equity value is $4.3B, making effective ROI 2,900% (29x)*
 
 ### Non-Financial Strategic Value
 
@@ -278,7 +279,7 @@ At 1,000,000x efficiency, the constraint is no longer compute - it's imagination
 ❌ Missing Mars/L5/Hyperloop timelines due to compute constraints
 
 ### The Choice:
-**Option A:** Pay $500M, own this exclusively across all companies, create $150B+ value
+**Option A:** Pay $221M cash + 1.5% equity, own this exclusively across all companies, create $148B+ value
 **Option B:** Pass, watch Microsoft/Google acquire it, compete at permanent disadvantage
 
 There is no Option C where this technology doesn't exist or doesn't matter.

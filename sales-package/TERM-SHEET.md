@@ -162,8 +162,8 @@
 
 ### Buyer Representations
 1. **Authority:** Authorized to enter into this agreement
-2. **Funding:** Has access to $500M cash for transaction
-3. **Equity authority:** Authorized to grant 0.5% equity across portfolio companies
+2. **Funding:** Has access to $221M cash for transaction
+3. **Equity authority:** Authorized to grant 1.5% equity across portfolio companies
 
 ---
 
@@ -187,7 +187,7 @@
 5. **Non-compete:** Cannot work on competing AI efficiency tech (5 years)
 
 ### Buyer Obligations
-1. **Payment:** Wire $500M within 5 business days of closing
+1. **Payment:** Wire $221M within 5 business days of closing
 2. **Equity grant:** Execute equity agreements within 10 business days
 3. **Trade secret protection:** Maintain confidentiality of GRCM technology
 4. **No public disclosure:** Do not publicly announce acquisition without seller consent
@@ -199,7 +199,7 @@
 
 ### Seller Can Terminate If:
 1. Validation period exceeds 10 days without good cause
-2. Buyer fails to wire $500M within 5 business days of closing
+2. Buyer fails to wire $221M within 5 business days of closing
 3. Buyer discloses GRCM technology publicly without consent
 
 ### Buyer Can Terminate If:

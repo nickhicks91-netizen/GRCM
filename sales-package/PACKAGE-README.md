@@ -64,7 +64,7 @@ Expected results:
 3. Schedule technical demo
 4. Deploy 7-day validation test
 5. Sign term sheet
-6. Wire transfer $500M
+6. Wire transfer $221M cash + execute equity grants
 7. Receive complete delivery package
 
 ## Timeline
