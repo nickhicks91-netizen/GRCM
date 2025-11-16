@@ -7,6 +7,7 @@ This package contains everything needed to evaluate GRCM for acquisition.
 ### Documents
 - `00-START-HERE.md` - 5-minute quick start
 - `01-EXECUTIVE-SUMMARY.txt` - Business case (2 pages)
+- `MULTI-COMPANY-APPLICATIONS.md` - Strategic value across Musk ecosystem
 - `02-EFFICIENCY-PROOF.pdf` - Technical validation
 - `03-DEMO-VIDEO.mp4` - Screen recording demo
 - `04-TERM-SHEET.pdf` - Proposed deal structure
