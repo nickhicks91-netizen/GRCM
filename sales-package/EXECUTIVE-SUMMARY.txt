@@ -64,29 +64,29 @@ CROSS-COMPANY VALUE
 
 THE OFFER
 ---------
-$221M cash + 1.5% equity for permanent exclusive ownership
+$121M cash + 2.21% equity for permanent exclusive ownership
 
 Structure:
 • All code + IP (trade secret, never patented)
 • 12-month integration support (remote, 20 hrs/week)
-• 1.5% equity across portfolio companies
+• 2.21% equity across portfolio companies
 • 7-day validation period (full refund if <10x speedup)
 
 Payment Terms:
-• $221M cash on closing (after 7-day validation passes)
-• 1.5% equity grant (immediate vesting, no cliff)
-• Equity split: 0.4% xAI, 0.4% Tesla, 0.35% SpaceX, 0.25% Neuralink, 0.1% Boring
-• Total current value: $221M cash + $4.1B equity (at current valuations)
-• Upside potential: $10B+ if L5/Mars/wireless BCI succeed
+• $121M cash on closing (after 7-day validation passes)
+• 2.21% equity grant (immediate vesting, no cliff)
+• Equity split: 0.59% xAI, 0.59% Tesla, 0.50% SpaceX, 0.37% Neuralink, 0.16% Boring
+• Total current value: $121M cash + $5.75B equity (at current valuations)
+• Upside potential: $15B+ if L5/Mars/wireless BCI succeed
 
-Why This Structure (Equity-Heavy):
-• Aligned with Elon's preference: 72% equity in Twitter deal (this is ~80% equity)
-• Shows confidence: I'm betting on upside, not extracting cash
-• Preserves your cash: $279M saved vs $500M (deploy to Starship/Colossus)
-• Perfect alignment: My equity grows only if GRCM transforms your companies
+Why This Structure (98% Equity):
+• EXTREME alignment with Elon's preference: 72% equity in Twitter (this is 98% equity)
+• Ultimate confidence: I'm betting almost EVERYTHING on equity
+• Preserves your cash: $379M saved vs $500M (deploy to Starship/Colossus)
+• Perfect alignment: My 2.21% only grows if GRCM transforms your companies
 • Tax-efficient: 20% capital gains vs 37%+ on royalties
 • Zero friction: No royalty tracking, deploy everywhere freely
-• Massive upside: If this enables L5/Mars/wireless BCI, my 1.5% → $10B+
+• Massive upside: If this enables L5/Mars/wireless BCI, my 2.21% → $15B+
 
 VALIDATION PROOF (QUINTUPLE-VALIDATED)
 ---------------------------------------
@@ -199,8 +199,9 @@ Boring Company:
 
 TOTAL ECOSYSTEM VALUE CREATED: $125B+ over 5 years
 
-Investment: $221M cash + $4.1B equity (GRCM license)
-ROI: 5,700% on cash (57x return)
+Investment: $121M cash + $5.75B equity (GRCM license)
+ROI: 103,000% on cash alone (1,030x return)
+Total ROI: 2,025% (20x return on $5.87B total investment)
 
 Annual value: $25B+/year across all companies
 
@@ -209,8 +210,8 @@ RISK MITIGATION
 7-Day Validation Period:
 • Deploy on 100 xAI GPUs
 • Measure speedup yourself
-• Full $221M refund if <10x speedup
-• Your risk: $221M to potentially save $33B+ and gain permanent competitive advantage
+• Full $121M refund if <10x speedup
+• Your risk: $121M to potentially save $125B+ and gain permanent competitive advantage
 
 COMPETITIVE URGENCY
 -------------------
@@ -242,7 +243,7 @@ NEXT STEPS
 2. Sign NDA (provided)
 3. Deploy 7-day validation test
 4. Sign definitive agreement
-5. Wire transfer $221M cash + execute equity grants
+5. Wire transfer $121M cash + execute 2.21% equity grants
 6. Begin integration
 
 Timeline: 30 days from demo to deployment

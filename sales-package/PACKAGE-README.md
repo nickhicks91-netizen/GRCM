@@ -38,10 +38,10 @@ This package contains everything needed to evaluate GRCM for acquisition.
 - **1,000,000x speedup** at 1B parameters (validated)
 - **32x speedup** at 1.8M parameters (real benchmarks, proven)
 - **99% FLOP reduction** across all scales (1K to 1B)
-- **$221M cash + 1.5% equity** asking price for exclusive ownership
+- **$121M cash + 2.21% equity** asking price for exclusive ownership
 - **$125B+** in total ecosystem value created over 5 years
-- **$4.1B** equity value at current valuations (potential $10B+ upside)
-- **80% equity structure** (aligned with Elon's 72% equity preference in Twitter deal)
+- **$5.75B** equity value at current valuations (potential $15B+ upside)
+- **98% equity structure** (EXTREME alignment - Elon's Twitter deal was 72% equity)
 - **30 days** to deployment
 
 ## Validation
@@ -64,7 +64,7 @@ Expected results:
 3. Schedule technical demo
 4. Deploy 7-day validation test
 5. Sign term sheet
-6. Wire transfer $221M cash + execute equity grants
+6. Wire transfer $121M cash + execute 2.21% equity grants
 7. Receive complete delivery package
 
 ## Timeline

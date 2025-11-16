@@ -79,25 +79,25 @@ This isn't just for xAI - **1,000,000x efficiency transforms every Musk company:
 
 ## The Offer
 
-**$221M cash + 1.5% equity for exclusive ownership**
+**$121M cash + 2.21% equity for exclusive ownership**
 
-**Why This Structure (Equity-Heavy):**
-- **Aligned with your preference:** 72% equity in Twitter deal (this is ~80% equity)
-- **Preserves cash:** Save $279M vs $500M (deploy to Starship/Colossus instead)
-- **Shows confidence:** I'm betting on the upside, not extracting cash
-- **Perfect alignment:** My 1.5% only grows if GRCM transforms your companies
+**Why This Structure (98% Equity):**
+- **EXTREME alignment:** 72% equity in Twitter deal → this is 98% equity
+- **Ultimate confidence:** I'm betting almost EVERYTHING on equity
+- **Preserves cash:** Save $379M vs $500M (deploy to Starship/Colossus instead)
+- **Perfect alignment:** My 2.21% only grows if GRCM transforms your companies
 
 **Cash Component:**
-- $221M paid on closing (after 7-day validation passes)
+- $121M paid on closing (after 7-day validation passes)
 - Full refund if validation shows <10x speedup
 - Your risk: minimal (can validate before committing)
 
 **Equity Component:**
-- 1.5% across portfolio companies
-  - 0.4% xAI, 0.4% Tesla, 0.35% SpaceX, 0.25% Neuralink, 0.1% Boring
+- 2.21% across portfolio companies
+  - 0.59% xAI, 0.59% Tesla, 0.50% SpaceX, 0.37% Neuralink, 0.16% Boring
 - Immediate vesting (no cliff)
-- Current value: ~$4.1B at today's valuations
-- Future value: $10B+ if L5/Mars/wireless BCI succeed
+- Current value: ~$5.75B at today's valuations
+- Future value: $15B+ if L5/Mars/wireless BCI succeed
 
 **What's Included:**
 - All code + IP (trade secret, never patented)
@@ -115,8 +115,8 @@ This isn't just for xAI - **1,000,000x efficiency transforms every Musk company:
 ## ROI Calculation (Full Ecosystem)
 
 **Investment:**
-- $221M cash (immediate)
-- 1.5% equity ($4.1B current value, dilutive but ecosystem grows)
+- $121M cash (immediate)
+- 2.21% equity ($5.75B current value, dilutive but ecosystem grows)
 
 **Value Created:**
 - xAI: $33.5B saved (datacenters eliminated)
@@ -126,9 +126,9 @@ This isn't just for xAI - **1,000,000x efficiency transforms every Musk company:
 - Boring: $5B+ (10x tunneling speed)
 - **Total: $125B+ over 5 years**
 
-**Your ROI: If GRCM creates $125B value, you paid $4.3B total (2% cost, 98% value capture)**
+**Your ROI: If GRCM creates $125B value, you paid $5.87B total (<5% cost, >95% value capture)**
 
-**My incentive: If this enables Tesla L5 → my 1.5% = $10B. If it doesn't work → I left money on table.**
+**My incentive: If this enables Tesla L5 → my 2.21% = $15B. If it doesn't work → I left MASSIVE money on table (took only $121M cash).**
 
 **At 1Mx efficiency, you don't need datacenters at all.**
 

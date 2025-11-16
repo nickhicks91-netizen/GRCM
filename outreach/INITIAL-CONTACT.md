@@ -24,8 +24,8 @@ Elon,
 - SpaceX enables autonomous Mars missions (500W onboard AI)
 
 **Deal:**
-- $221M cash + 1.5% equity for permanent exclusive
-- Equity-heavy structure (80% equity, aligned with your Twitter deal preference)
+- $121M cash + 2.21% equity for permanent exclusive
+- 98% equity structure (EXTREME alignment - your Twitter deal was 72% equity)
 - 7-day validation on your GPUs (refund if <10x proven)
 - Zero trust required - measure it yourself
 
@@ -97,7 +97,8 @@ output = pruned_attention @ V  # Linear scaling
 The efficiency compounds exponentially - just like your μP shows optimal HPs transfer across scales, this shows **optimal architecture transfers efficiency exponentially**.
 
 **Deal Structure:**
-- $221M cash + 1.5% equity (80% equity structure, preserves xAI cash)
+- $121M cash + 2.21% equity (98% equity structure - shows ultimate confidence)
+- EXTREME alignment: Your Twitter deal was 72% equity → this is 98% equity
 - 7-day validation: Deploy on 100 GPUs, measure speedup yourself
 - Full refund if <10x proven
 - Permanent exclusive (lock Microsoft/Google out)
@@ -181,9 +182,9 @@ Result: Linear scaling, exponential efficiency gains
 **Why exponential?** Resonant pruning efficiency compounds as model grows. Larger models = more redundancy to prune.
 
 **Deal Structure:**
-- $221M cash + 1.5% equity across portfolio
-- Equity-heavy structure (80% equity, preserves $279M cash vs typical deal)
-- Aligned with Elon's preference (72% equity in Twitter acquisition)
+- $121M cash + 2.21% equity across portfolio
+- 98% equity structure (EXTREME alignment - Elon's Twitter was 72% equity)
+- Preserves $379M cash vs $500M typical deal
 - 7-day validation period (deploy on 100 xAI GPUs, measure yourself)
 - Full refund if <10x speedup proven
 - Permanent exclusive (Microsoft/Google locked out)

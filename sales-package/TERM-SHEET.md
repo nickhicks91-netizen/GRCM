@@ -15,15 +15,15 @@
 
 ## Deal Structure
 
-### Total Consideration: $221M Cash + 1.5% Equity
+### Total Consideration: $121M Cash + 2.21% Equity
 
-**Cash Component:** $221,000,000
-**Equity Component:** 1.5% across portfolio companies
+**Cash Component:** $121,000,000
+**Equity Component:** 2.21% across portfolio companies
 
-**Rationale for Equity-Heavy Structure:**
-- Aligned with Elon's preference (72% equity in Twitter acquisition)
-- Preserves $279M cash for Starship/Colossus development
-- Shows seller confidence (betting on upside, not extracting cash)
+**Rationale for 98% Equity Structure:**
+- EXTREME alignment with Elon's preference (72% equity in Twitter → this is 98% equity)
+- Preserves $379M cash for Starship/Colossus development
+- Ultimate seller confidence (betting almost EVERYTHING on equity)
 - Perfect alignment (seller wins only if GRCM transforms companies)
 
 ---
@@ -31,32 +31,32 @@
 ## Payment Terms
 
 ### Cash Payment
-- **Amount:** $221M USD
+- **Amount:** $121M USD
 - **Timing:** On closing (after successful 7-day validation)
 - **Conditions:** Validation must demonstrate >10x speedup at production scale
 - **Refund:** Full refund if validation shows <10x speedup
 
 ### Equity Grant
-- **Total:** 1.5% across Musk portfolio companies
+- **Total:** 2.21% across Musk portfolio companies
 - **Allocation:**
-  - xAI: 0.4%
-  - Tesla: 0.4%
-  - SpaceX: 0.35%
-  - Neuralink: 0.25%
-  - Boring Company: 0.1%
+  - xAI: 0.59%
+  - Tesla: 0.59%
+  - SpaceX: 0.50%
+  - Neuralink: 0.37%
+  - Boring Company: 0.16%
 - **Vesting:** Immediate (no cliff, no vesting schedule)
 - **Type:** Common stock or equivalent equity interest
 - **Rights:** Standard shareholder rights (voting, dividends, liquidation preference)
 - **Restrictions:** Standard transfer restrictions, right of first refusal
 
 ### Current Equity Valuation
-- Tesla (~$800B market cap): 0.4% = ~$3.2B
-- SpaceX (~$150B valuation): 0.35% = ~$525M
-- xAI (~$40B estimated): 0.4% = ~$160M
-- Neuralink (~$8B estimated): 0.25% = ~$20M
-- Boring Company (~$5B estimated): 0.1% = ~$5M
-- **Total current value: ~$4.1B**
-- **Upside potential: $10B+ if L5/Mars/wireless BCI succeed**
+- Tesla (~$800B market cap): 0.59% = ~$4.72B
+- SpaceX (~$150B valuation): 0.50% = ~$750M
+- xAI (~$40B estimated): 0.59% = ~$236M
+- Neuralink (~$8B estimated): 0.37% = ~$30M
+- Boring Company (~$5B estimated): 0.16% = ~$8M
+- **Total current value: ~$5.75B**
+- **Upside potential: $15B+ if L5/Mars/wireless BCI succeed**
 
 ---
 
@@ -162,8 +162,8 @@
 
 ### Buyer Representations
 1. **Authority:** Authorized to enter into this agreement
-2. **Funding:** Has access to $221M cash for transaction
-3. **Equity authority:** Authorized to grant 1.5% equity across portfolio companies
+2. **Funding:** Has access to $121M cash for transaction
+3. **Equity authority:** Authorized to grant 2.21% equity across portfolio companies
 
 ---
 
@@ -187,8 +187,8 @@
 5. **Non-compete:** Cannot work on competing AI efficiency tech (5 years)
 
 ### Buyer Obligations
-1. **Payment:** Wire $221M within 5 business days of closing
-2. **Equity grant:** Execute equity agreements within 10 business days
+1. **Payment:** Wire $121M within 5 business days of closing
+2. **Equity grant:** Execute 2.21% equity agreements within 10 business days
 3. **Trade secret protection:** Maintain confidentiality of GRCM technology
 4. **No public disclosure:** Do not publicly announce acquisition without seller consent
 5. **Access:** Provide seller with necessary access/resources for integration support
@@ -199,7 +199,7 @@
 
 ### Seller Can Terminate If:
 1. Validation period exceeds 10 days without good cause
-2. Buyer fails to wire $221M within 5 business days of closing
+2. Buyer fails to wire $121M within 5 business days of closing
 3. Buyer discloses GRCM technology publicly without consent
 
 ### Buyer Can Terminate If:
