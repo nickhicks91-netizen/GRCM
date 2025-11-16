@@ -64,19 +64,26 @@ CROSS-COMPANY VALUE
 
 THE OFFER
 ---------
-$500M for permanent exclusive ownership
+$500M cash + 0.5% equity for permanent exclusive ownership
 
 Structure:
 • All code + IP (trade secret, never patented)
-• 6-month integration support (remote, 20 hrs/week)
-• $200M success bonus (if Grok 4 trains in <7 days)
-• 7-day validation period ($250M refund if <10x)
+• 12-month integration support (remote, 20 hrs/week)
+• 0.5% equity across portfolio companies
+• 7-day validation period (full refund if <10x speedup)
 
 Payment Terms:
-• $250M on signing
-• $250M after 7-day validation
-• $200M bonus at 6 months (conditional)
-• Total potential: $700M
+• $500M cash on closing (after 7-day validation passes)
+• 0.5% equity grant (immediate vesting, no cliff)
+• Equity split: 0.15% xAI, 0.15% Tesla, 0.1% SpaceX, 0.05% Neuralink, 0.05% Boring
+• Total value: $500M cash + $3-5B equity potential (at current valuations)
+
+Why Equity (Not Royalties):
+• Aligned incentives: My equity grows as ecosystem succeeds
+• No tracking disputes: Clean one-time grant
+• Tax-efficient: 20% capital gains vs 37%+ on royalties
+• Zero deployment friction: No "should we use it here?" calculations
+• Massive upside: 0.5% of ecosystem worth billions if L5/Mars/BCI succeed
 
 VALIDATION PROOF (QUINTUPLE-VALIDATED)
 ---------------------------------------

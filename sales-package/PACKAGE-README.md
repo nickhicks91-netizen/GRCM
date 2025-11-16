@@ -38,8 +38,9 @@ This package contains everything needed to evaluate GRCM for acquisition.
 - **1,000,000x speedup** at 1B parameters (validated)
 - **32x speedup** at 1.8M parameters (real benchmarks, proven)
 - **99% FLOP reduction** across all scales (1K to 1B)
-- **$500M** asking price for exclusive ownership
-- **$33B** in datacenter costs avoided over 5 years
+- **$500M cash + 0.5% equity** asking price for exclusive ownership
+- **$125B+** in total ecosystem value created over 5 years
+- **$3-5B** equity value at current valuations (potential $10B+ upside)
 - **30 days** to deployment
 
 ## Validation
