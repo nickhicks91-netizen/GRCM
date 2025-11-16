@@ -118,12 +118,12 @@ WHY IT SCALES:
                           THE DEAL
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-OFFER:  $500M cash + 0.5% equity
+OFFER:  $121M cash + 2.21% equity (98% equity structure)
 
 STRUCTURE:
   ✓ Permanent exclusive (Microsoft/Google locked out forever)
   ✓ 7-day validation (deploy on your GPUs, measure yourself)
-  ✓ Full refund if <10x proven (ZERO RISK)
+  ✓ No payment until proven (if <10x, deal terminates - ZERO RISK)
   ✓ 12-month integration support
 
 WHAT YOU GET:
@@ -196,7 +196,7 @@ TECHNICAL BRIEF:  [Link]  |  BENCHMARKS (Reproducible):  [GitHub]
 - Side-by-side comparison (them vs you)
 - Numbers are specific (32x proven, $100B loss)
 - Timeline creates urgency (Friday deadline)
-- Zero-risk framing (7-day validation, refund)
+- Zero-risk framing (7-day validation, no payment until proven)
 
 **Tone:**
 - Not selling opportunity (they'll save money)

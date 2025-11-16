@@ -30,13 +30,24 @@
 
 ## Payment Terms
 
-### Cash Payment
-- **Amount:** $121M USD
-- **Timing:** On closing (after successful 7-day validation)
-- **Conditions:** Validation must demonstrate >10x speedup at production scale
-- **Refund:** Full refund if validation shows <10x speedup
+### Contingent Payment Structure
 
-### Equity Grant
+**Payment occurs ONLY after successful validation:**
+
+1. **Sign Term Sheet** (non-binding)
+2. **7-Day Validation Period** (deploy on xAI GPUs, measure speedup)
+3. **If validation shows >10x speedup** → Proceed to closing
+4. **If validation shows <10x speedup** → Deal terminates, no payment made
+
+### Cash Payment at Closing
+- **Amount:** $121M USD total
+- **Payment breakdown:**
+  - $111M → Paid to seller immediately (wire transfer)
+  - $10M → Held in escrow for 12 months
+- **Timing:** Within 5 business days of closing
+- **Escrow terms:** See Escrow Provisions below
+
+### Equity Grant at Closing
 - **Total:** 2.21% across Musk portfolio companies
 - **Allocation:**
   - xAI: 0.59%
@@ -48,6 +59,23 @@
 - **Type:** Common stock or equivalent equity interest
 - **Rights:** Standard shareholder rights (voting, dividends, liquidation preference)
 - **Restrictions:** Standard transfer restrictions, right of first refusal
+- **Irrevocable:** Cannot be reclaimed or forfeited after grant
+
+### Escrow Provisions
+
+**Escrow Amount:** $10M held for 12 months
+
+**Buyer may claim from escrow ONLY for:**
+1. **Material misrepresentation:** Seller lied about technology capabilities (e.g., false benchmark data)
+2. **Breach of warranty:** Technology fundamentally broken or non-functional as described
+3. **IP ownership issues:** Third party claims ownership of GRCM technology
+
+**Maximum claim:** $10M (escrow amount)
+
+**Escrow release:**
+- After 12 months, if no valid claims → Full $10M paid to seller
+- If valid claims → Buyer deducts from escrow, remainder paid to seller
+- Seller keeps $111M + 2.21% equity regardless of escrow outcome
 
 ### Current Equity Valuation
 - Tesla (~$800B market cap): 0.59% = ~$4.72B
@@ -137,14 +165,15 @@
 - Code quality meets production standards
 
 **If Validation Fails (<10x speedup):**
-- Transaction terminates
-- Full refund of any payments made
+- Transaction terminates immediately
+- No payment obligation (validation occurs BEFORE any money changes hands)
 - All IP/code returned to seller
 - Both parties resume independent operations
 
 **If Validation Succeeds (>10x speedup):**
 - Proceed to closing
-- Wire transfer $500M cash
+- Wire transfer $111M cash immediately
+- Deposit $10M into escrow account
 - Execute equity grant agreements
 - Begin 12-month integration support period
 
@@ -169,11 +198,22 @@
 
 ## Conditions Precedent to Closing
 
-1. **Successful validation:** 7-day validation period shows >10x speedup
+**The following must occur BEFORE any payment is made:**
+
+1. **Successful validation:** 7-day validation period demonstrates >10x speedup at production scale
+   - Validation happens BEFORE closing
+   - If validation fails, deal terminates with no payment obligation
+   - If validation succeeds, parties proceed to closing
+
 2. **Due diligence:** Legal and technical due diligence completed satisfactorily
+
 3. **NDA execution:** Non-disclosure agreement signed by both parties
+
 4. **Board approvals:** Any required board/shareholder approvals obtained
+
 5. **Regulatory clearance:** Any required regulatory approvals (if applicable)
+
+6. **Escrow agreement:** Third-party escrow account established for $10M holdback
 
 ---
 
@@ -187,25 +227,48 @@
 5. **Non-compete:** Cannot work on competing AI efficiency tech (5 years)
 
 ### Buyer Obligations
-1. **Payment:** Wire $121M within 5 business days of closing
-2. **Equity grant:** Execute 2.21% equity agreements within 10 business days
-3. **Trade secret protection:** Maintain confidentiality of GRCM technology
-4. **No public disclosure:** Do not publicly announce acquisition without seller consent
-5. **Access:** Provide seller with necessary access/resources for integration support
+
+**At Closing:**
+1. **Cash payment:** Wire $111M to seller within 5 business days of closing
+2. **Escrow funding:** Deposit $10M into third-party escrow account
+3. **Equity grant:** Execute and deliver 2.21% equity agreements within 10 business days
+
+**Ongoing:**
+4. **Trade secret protection:** Maintain confidentiality of GRCM technology
+5. **No public disclosure:** Do not publicly announce acquisition without seller consent
+6. **Integration access:** Provide seller with necessary access/resources for 12-month support period
+7. **Escrow release:** Release escrow funds to seller after 12 months (minus any valid claims)
 
 ---
 
 ## Termination Rights
 
-### Seller Can Terminate If:
-1. Validation period exceeds 10 days without good cause
-2. Buyer fails to wire $121M within 5 business days of closing
-3. Buyer discloses GRCM technology publicly without consent
+### Pre-Closing Termination
 
-### Buyer Can Terminate If:
-1. Validation shows <10x speedup
+**Either party may terminate BEFORE closing if:**
+
+**Seller can terminate if:**
+1. Validation period exceeds 10 days without good cause
+2. Buyer fails to fund escrow or wire cash within 5 business days of closing
+3. Buyer discloses GRCM technology during due diligence without proper NDA
+
+**Buyer can terminate if:**
+1. **Validation shows <10x speedup** (primary contingency - deal ends, no payment)
 2. Material misrepresentation discovered in due diligence
-3. Seller cannot deliver complete codebase/IP
+3. Seller cannot deliver complete codebase/IP as warranted
+
+### Post-Closing
+
+**Once deal closes, termination is NOT possible. Deal is final.**
+
+**Buyer's only remedies after closing:**
+1. Claim against $10M escrow for misrepresentation/breach (12-month window)
+2. Legal action for fraud (must prove intentional misrepresentation)
+
+**Seller keeps:**
+- $111M cash (cannot be reclaimed)
+- 2.21% equity (cannot be forfeited)
+- Escrow amount minus any valid claims
 
 ---
 

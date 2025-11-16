@@ -26,7 +26,7 @@ Elon,
 **Deal:**
 - $121M cash + 2.21% equity for permanent exclusive
 - 98% equity structure (EXTREME alignment - your Twitter deal was 72% equity)
-- 7-day validation on your GPUs (refund if <10x proven)
+- 7-day validation on your GPUs (no payment until proven)
 - Zero trust required - measure it yourself
 
 **Timeline:** Exclusive window closes end of week (Microsoft actively acquiring efficiency tech)
@@ -100,7 +100,7 @@ The efficiency compounds exponentially - just like your μP shows optimal HPs tr
 - $121M cash + 2.21% equity (98% equity structure - shows ultimate confidence)
 - EXTREME alignment: Your Twitter deal was 72% equity → this is 98% equity
 - 7-day validation: Deploy on 100 GPUs, measure speedup yourself
-- Full refund if <10x proven
+- No payment until validation succeeds (if <10x, deal terminates)
 - Permanent exclusive (lock Microsoft/Google out)
 
 **Timeline:**
@@ -186,7 +186,7 @@ Result: Linear scaling, exponential efficiency gains
 - 98% equity structure (EXTREME alignment - Elon's Twitter was 72% equity)
 - Preserves $379M cash vs $500M typical deal
 - 7-day validation period (deploy on 100 xAI GPUs, measure yourself)
-- Full refund if <10x speedup proven
+- No payment until proven (if <10x, deal terminates with zero cost)
 - Permanent exclusive (Microsoft/Google locked out)
 
 **Timeline:**
@@ -250,13 +250,13 @@ Resonant attention architecture (O(n×d) vs O(n²×d)). Proven 32x on real hardw
 **VALIDATION:**
 - Real benchmarks: 32x @ 1.8M params (PyTorch, CPU, reproducible)
 - Scaling validated: 81x @ 10M, 1Mx @ 1B (EOM physics simulations)
-- 7-day validation: Deploy on your GPUs, measure yourself, refund if <10x
+- 7-day validation: Deploy on your GPUs, measure yourself, no payment until proven
 
 **DEAL:**
-- $500M cash + 0.5% equity
+- $121M cash + 2.21% equity (98% equity structure)
 - Permanent exclusive (Microsoft/Google locked out forever)
 - 12-month integration support
-- Zero risk (validate before paying)
+- Zero risk (validate before paying anything)
 
 **TIMELINE:**
 - Microsoft term sheet: End of week
@@ -335,8 +335,8 @@ output = pruned_attention @ V  # O(n×d)
 1. Deploy on 100 GPUs (7 days)
 2. Run production workloads
 3. Measure speedup
-4. If >10x: Close deal
-5. If <10x: Full refund, walk away
+4. If >10x: Close deal and wire $121M
+5. If <10x: Deal terminates, no payment made
 
 **Strategic Value:**
 - xAI: Eliminate datacenter costs ($30B saved)

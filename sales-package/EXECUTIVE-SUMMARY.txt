@@ -70,7 +70,7 @@ Structure:
 • All code + IP (trade secret, never patented)
 • 12-month integration support (remote, 20 hrs/week)
 • 2.21% equity across portfolio companies
-• 7-day validation period (full refund if <10x speedup)
+• 7-day validation period (deal terminates if <10x proven, no payment made)
 
 Payment Terms:
 • $121M cash on closing (after 7-day validation passes)
@@ -210,8 +210,9 @@ RISK MITIGATION
 7-Day Validation Period:
 • Deploy on 100 xAI GPUs
 • Measure speedup yourself
-• Full $121M refund if <10x speedup
-• Your risk: $121M to potentially save $125B+ and gain permanent competitive advantage
+• If <10x speedup: Deal terminates, no payment obligation
+• Payment occurs ONLY after validation succeeds
+• Your risk: Zero cash outlay until technology proven on your hardware
 
 COMPETITIVE URGENCY
 -------------------

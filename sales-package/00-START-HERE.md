@@ -88,9 +88,9 @@ This isn't just for xAI - **1,000,000x efficiency transforms every Musk company:
 - **Perfect alignment:** My 2.21% only grows if GRCM transforms your companies
 
 **Cash Component:**
-- $121M paid on closing (after 7-day validation passes)
-- Full refund if validation shows <10x speedup
-- Your risk: minimal (can validate before committing)
+- $121M paid on closing (ONLY if 7-day validation succeeds)
+- If validation shows <10x speedup: Deal terminates, no payment made
+- Your risk: minimal (validate before paying anything)
 
 **Equity Component:**
 - 2.21% across portfolio companies
