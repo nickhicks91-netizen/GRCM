@@ -21,6 +21,7 @@ from .lattice import LatticeBuilder, build_ring_lattice
 from .coupling import CouplingMatrix, build_coupling_matrix
 from .ode_solver import integrate_echozero, RK4Solver
 from .mobius import MobiusEchoLayer, create_mobius_layer
+from .spiral import SpiralLattice, create_spiral_lattice
 
 __all__ = [
     "echozero_dynamics",
@@ -35,4 +36,6 @@ __all__ = [
     "RK4Solver",
     "MobiusEchoLayer",
     "create_mobius_layer",
+    "SpiralLattice",
+    "create_spiral_lattice",
 ]
