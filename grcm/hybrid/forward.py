@@ -20,6 +20,8 @@ from ..echozero import (
     compute_want_modulation,
 )
 from ..echozero.ode_solver import integrate_echozero
+from ..echozero.mobius import MobiusEchoLayer
+from ..echozero.identity import TorsionLattice3D, LatticeUpdater
 from .integration import FrequencyDrive, extract_desires_from_grcm
 
 
@@ -48,6 +50,14 @@ class EchoGRCMHybrid(nn.Module):
         dt: float = 0.01,
         integration_steps: int = 10,
         device: str = "cpu",
+        # Torsion Lattice parameters (SLOW LOOP - optional)
+        enable_torsion_lattice: bool = True,
+        lattice_size: int = 5,
+        lattice_coupling: float = 0.8,
+        lattice_decay: float = 0.03,
+        lattice_write_strength: float = 0.03,
+        lattice_sync_interval: int = 300,
+        lattice_torsion_threshold: float = 0.2,
     ):
         """
         Initialize EchoGRCM hybrid system.
@@ -62,6 +72,13 @@ class EchoGRCMHybrid(nn.Module):
             dt: Integration time step
             integration_steps: Number of integration steps
             device: Computation device
+            enable_torsion_lattice: Enable 3D torsion memory lattice (slow loop)
+            lattice_size: Torsion lattice dimension (size³ grid)
+            lattice_coupling: XY coupling strength
+            lattice_decay: Self-healing decay rate
+            lattice_write_strength: Weak write coefficient (< 0.05)
+            lattice_sync_interval: Steps between syncs (controls Hz)
+            lattice_torsion_threshold: Möbius gate threshold
         """
         super().__init__()
         self.n_nodes = n_nodes
@@ -114,6 +131,31 @@ class EchoGRCMHybrid(nn.Module):
 
         # Proprioceptive force calculation
         self.force_scale = 0.1
+
+        # Möbius layer for torsion score computation
+        self.mobius = MobiusEchoLayer(
+            hidden_dim=n_nodes,
+            loop_len=256,
+            device=device,
+        )
+
+        # 3D Torsion Memory Lattice (SLOW LOOP - optional)
+        self.enable_torsion_lattice = enable_torsion_lattice
+        if enable_torsion_lattice:
+            self.torsion_lattice = TorsionLattice3D(
+                size=lattice_size,
+                coupling=lattice_coupling,
+                gamma=lattice_decay,
+            )
+            self.lattice_updater = LatticeUpdater(
+                lattice=self.torsion_lattice,
+                write_strength=lattice_write_strength,
+                sync_interval=lattice_sync_interval,
+                torsion_threshold=lattice_torsion_threshold,
+            )
+        else:
+            self.torsion_lattice = None
+            self.lattice_updater = None
 
         # Move to device
         self.to(device)
@@ -229,6 +271,25 @@ class EchoGRCMHybrid(nn.Module):
             force.expand(-1, 3),
         ], dim=-1) * self.dt
 
+        # 11. Möbius Torsion Score (for stability gating)
+        psi_validated, mobius_metrics = self.mobius(psi_real)
+        torsion_score = mobius_metrics['energy'].mean().item()
+
+        # 12. Torsion Lattice Sync (SLOW LOOP - non-blocking)
+        lattice_sync_info = None
+        if self.enable_torsion_lattice:
+            # Extract identity state as 2D vector (mean of real + imag components)
+            identity_state = np.array([
+                psi_real.mean().item(),
+                psi.imag.mean().item(),
+            ])
+
+            # Periodic sync (only commits every N steps if torsion is low)
+            lattice_sync_info = self.lattice_updater.maybe_sync(
+                echo_state=identity_state,
+                torsion_score=torsion_score,
+            )
+
         return {
             "psi": psi,
             "coherence": coherence,
@@ -239,6 +300,9 @@ class EchoGRCMHybrid(nn.Module):
             "desires": desires,
             "gamma": gamma,
             "grounded": grounded,
+            "mobius_metrics": mobius_metrics,
+            "torsion_score": torsion_score,
+            "lattice_sync_info": lattice_sync_info,
         }
 
     def _compute_phi(
