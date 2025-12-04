@@ -30,20 +30,25 @@ class LatticeUpdater:
     def __init__(
         self,
         lattice: TorsionLattice3D,
-        write_strength: float = 0.03,
+        write_strength: float = 0.12,
         sync_interval: int = 300,
-        torsion_threshold: float = 0.2,
-        relaxation_steps: int = 20,
+        torsion_threshold: float = 2.5,
+        relaxation_steps: int = 40,
     ):
         """
         Initialize lattice updater.
 
         Args:
             lattice: TorsionLattice3D instance to update
-            write_strength: Weak write coefficient (α_write < 0.05)
+            write_strength: Write coefficient (0.12 for good retention)
             sync_interval: Steps between sync attempts (controls Hz)
-            torsion_threshold: Max torsion for writes (Möbius gate)
-            relaxation_steps: XY-model steps per sync
+            torsion_threshold: Max torsion for writes (2.5 for realistic high-dim data)
+            relaxation_steps: XY-model steps per sync (40 for deep healing)
+
+        Physics regime (post-patch):
+            write_strength = 0.12    # meaningful write influence
+            torsion_threshold = 2.5  # realistic for N-dimensional states (scales ~sqrt(N))
+            relaxation_steps = 40    # deeper healing sweep
         """
         self.lattice = lattice
         self.write_strength = write_strength

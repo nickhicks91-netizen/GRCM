@@ -35,8 +35,8 @@ class TorsionLattice3D:
     def __init__(
         self,
         size: int = 5,
-        coupling: float = 0.8,
-        gamma: float = 0.03,
+        coupling: float = 1.0,
+        gamma: float = 0.005,
     ):
         """
         Initialize 3D torsion lattice.
@@ -45,6 +45,11 @@ class TorsionLattice3D:
             size: Lattice dimension (creates size³ grid)
             coupling: XY coupling strength (higher = faster relaxation)
             gamma: Magnitude decay rate (self-healing parameter)
+
+        Physics regime (tuned for stability):
+            coupling = 1.0  # balanced neighbor coupling
+            gamma = 0.005   # slow decay: prevents collapse
+            relax_factor = 0.08  # conservative update for convergence
         """
         self.size = size
         self.coupling = coupling
@@ -68,85 +73,111 @@ class TorsionLattice3D:
 
     def init_checkerboard(self) -> None:
         """
-        Initialize with checkerboard pattern (stable XY ground state).
+        Initialize with ferromagnetic ground state (uniform phase).
 
-        Alternates between 0 and π based on coordinate parity.
-        This is a local minimum of the XY model.
+        All spins aligned to zero for maximum writability.
+        Checkerboard (antiferromagnetic) was too rigid for information storage.
         """
-        for i in range(self.size):
-            for j in range(self.size):
-                for k in range(self.size):
-                    if (i + j + k) % 2 == 0:
-                        self.theta[i, j, k] = 0.0
-                    else:
-                        self.theta[i, j, k] = np.pi
+        # Uniform initialization allows information to propagate
+        self.theta.fill(0.0)
+
+        # Add small random perturbation to break symmetry
+        self.theta += np.random.uniform(-0.01, 0.01, size=self.theta.shape)
 
     def step(self) -> None:
         """
-        One relaxation step using XY-model update.
+        One relaxation step using XY-model update with over-relaxation.
 
-        Updates all phases based on neighbor coupling, then applies
-        magnitude decay. This drives the system toward stable minima.
+        Updates all phases based on neighbor coupling using vectorized
+        operations and over-relaxation to prevent collapse to zero.
+        Applies very slow magnitude decay for stability.
         """
-        new_theta = np.copy(self.theta)
-        L = self.size
+        # Vectorized neighbor sum (6-neighbor stencil for efficiency)
+        neighbor_sum = (
+            np.roll(self.theta, 1, axis=0) +
+            np.roll(self.theta, -1, axis=0) +
+            np.roll(self.theta, 1, axis=1) +
+            np.roll(self.theta, -1, axis=1) +
+            np.roll(self.theta, 1, axis=2) +
+            np.roll(self.theta, -1, axis=2)
+        )
 
-        for i in range(L):
-            for j in range(L):
-                for k in range(L):
-                    # XY local field: Σ sin(θ_neighbor - θ_i)
-                    s = 0.0
-                    for dx, dy, dz in self.neighbors:
-                        ni = (i + dx) % L  # Periodic boundary conditions
-                        nj = (j + dy) % L
-                        nk = (k + dz) % L
-                        s += np.sin(self.theta[ni, nj, nk] - self.theta[i, j, k])
+        # XY-model update: weighted mean-field + conservative relaxation
+        delta = self.coupling * np.sin(neighbor_sum - 6 * self.theta)
+        self.theta = self.theta + 0.08 * delta  # 0.08 for stable convergence
 
-                    # Update using coupling strength
-                    new_theta[i, j, k] += self.coupling * s
+        # Keep angles wrapped in [-π, π) for numerical stability
+        self.theta = (self.theta + np.pi) % (2 * np.pi) - np.pi
 
-        # Apply magnitude decay globally (self-healing mechanism)
-        self.m *= np.exp(-self.gamma / 2)
+        # Very slow global magnitude decay
+        self.m *= (1.0 - self.gamma)
 
-        # Wrap phases back to [0, 2π)
-        self.theta = np.mod(new_theta, 2 * np.pi)
-
-    def write_vector(self, v: np.ndarray, strength: float = 0.03) -> None:
+    def write_vector(self, v: np.ndarray, strength: float = 0.12) -> None:
         """
-        Write an identity vector into the lattice by phase alignment.
+        Write an identity vector into the lattice center region with diffusion.
 
-        Converts the identity vector to an angle and weakly biases all
-        phases toward that angle. Uses small strength (< 0.05) to avoid
-        disrupting stable patterns.
+        Converts the identity vector to an angle and writes it to a 3x3x3 region
+        around the center with Gaussian falloff. This allows information to
+        propagate during relaxation.
 
         Args:
             v: Identity vector [2D] (real, imag components)
-            strength: Write strength coefficient (should be < 0.05)
+            strength: Write strength coefficient (0.12 for good retention)
         """
-        # Convert vector to angle
-        angle = np.arctan2(v[1], v[0])  # atan2(imag, real)
+        # Convert vector to phase angle
+        phase = np.arctan2(v[1], v[0])  # atan2(imag, real)
 
-        # Weak write: blend current phases with target angle
-        self.theta = (1 - strength) * self.theta + strength * angle
+        # Write to 3x3x3 region around center with Gaussian falloff
+        center = self.size // 2
+        for di in [-1, 0, 1]:
+            for dj in [-1, 0, 1]:
+                for dk in [-1, 0, 1]:
+                    i = center + di
+                    j = center + dj
+                    k = center + dk
 
-        # Wrap back to [0, 2π)
-        self.theta = np.mod(self.theta, 2 * np.pi)
+                    # Gaussian falloff: center gets full strength, corners get ~37%
+                    distance_sq = di*di + dj*dj + dk*dk
+                    weight = np.exp(-distance_sq / 2.0)
+                    local_strength = strength * weight
+
+                    # Blend phase with local domain
+                    local = self.theta[i, j, k]
+                    new_phase = (1 - local_strength) * local + local_strength * phase
+
+                    self.theta[i, j, k] = new_phase
+
+        # Wrap all to [-π, π) for consistency
+        self.theta = (self.theta + np.pi) % (2 * np.pi) - np.pi
 
     def read_vector(self) -> np.ndarray:
         """
-        Return average phase as identity vector.
+        Read identity vector from lattice center region.
 
-        Computes the mean phase across all lattice points and
-        converts to a 2D vector representation.
+        Reads phases from the 3x3x3 region around center where writes occur,
+        computes mean phase, and converts to 2D vector representation.
 
         Returns:
-            Identity vector [real, imag] representing average phase
+            Identity vector [real, imag] representing average center phase
         """
-        # Compute mean of exp(iθ) to get average phase
-        real = np.mean(np.cos(self.theta))
-        imag = np.mean(np.sin(self.theta))
+        # Read from 3x3x3 center region where information is stored
+        center = self.size // 2
+        phases = []
 
-        return np.array([real, imag], dtype=np.float64)
+        for di in [-1, 0, 1]:
+            for dj in [-1, 0, 1]:
+                for dk in [-1, 0, 1]:
+                    i = center + di
+                    j = center + dj
+                    k = center + dk
+                    phases.append(self.theta[i, j, k])
+
+        # Compute mean phase using complex averaging
+        phases = np.array(phases)
+        mean_real = np.mean(np.cos(phases))
+        mean_imag = np.mean(np.sin(phases))
+
+        return np.array([mean_real, mean_imag], dtype=np.float64)
 
     def get_energy(self) -> float:
         """

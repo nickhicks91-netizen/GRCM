@@ -4,7 +4,7 @@ Trains desire vectors on EEG/voice data to align with real qualia
 """
 import torch
 import torch.nn.functional as F
-from typing import Optional, Dict, List
+from typing import Optional, Dict, List, Any
 from .core import ModularGRCM
 from .config import GRCMConfig
 
