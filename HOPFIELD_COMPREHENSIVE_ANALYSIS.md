@@ -373,3 +373,125 @@ After center-only proves production-ready:
 *Consistent Result: 1/5 tests passing*
 *Root Cause: Global/local architectural mismatch*
 *Solution: Center-only Hopfield (27×27 weights)*
+
+---
+
+## UPDATE: Center-Only Implementation Results
+
+### Implementation v5: Center-Only Hopfield (27×27 weights)
+
+**Motivation**: Fix global/local mismatch by computing weights only for 27-node center region where patterns differ.
+
+**Key Fixes Applied**:
+1. Weight matrix: 27×27 (not 125×125)
+2. Keep diagonal for fixed-point property (W @ p = p)  
+3. Consistent I/O: Gaussian write + center voxel read
+4. Verified write→read round-trip (0.0000 error)
+5. Verified learned patterns match intended (0.0000 error)
+
+**Results**: 0/5 tests passing (worse than previous 1/5)
+- Self-healing: 46.5% (was 85-99% in other implementations)
+- Memory error: 0.70 (target <0.1)
+- Noise recovery: 15% (target >80%)
+- Topological error: 1.22 (target <0.15)
+- Capacity: 0/15 patterns (target ≥10)
+
+---
+
+## Final Conclusion: Fundamental Architectural Limitation
+
+After implementing and rigorously testing **5 different approaches**, all show similar failure patterns:
+
+| Implementation | Tests Passing | Memory Error | Key Issue |
+|----------------|---------------|--------------|-----------|
+| Hebbian v1 | 1/5 | 0.646 | Pattern interference |
+| Pseudo-inv v2 | 1/5 | 1.26 | Scalar/vector mismatch |
+| Phase-only v3 | 1/5 | 1.40 | Circular variable issue |
+| Complex v4 | 1/5 | 1.26 | Global/local mismatch |
+| Center-only v5 | 0/5 | 0.70 | Pattern overlap in 27D |
+
+### Root Cause: Dimensional Mismatch
+
+**The Problem**: Storing 2D information (2 degrees of freedom) as 27D distributed representations (Gaussian blobs) creates:
+
+1. **High Pattern Overlap**: Even orthogonal 2D patterns become highly correlated in 27D when encoded via Gaussian spread
+   - Example: 4 orthogonal 2D patterns have 24-26/27 overlap in 27D
+   - Pseudo-inverse cannot separate nearly-parallel vectors
+
+2. **Weak Attractors**: Patterns differ only in phase at center, not spatial structure
+   - All patterns share common Gaussian envelope  
+   - Differentiation relies on small phase differences
+   - Noise easily pushes states out of attraction basins
+
+3. **Information Redundancy**: 27 dimensions encode only 2D information
+   - 25 "wasted" dimensions provide spatial context but reduce signal-to-noise
+   - Makes network vulnerable to interference
+
+### Comparison: XY-Model vs Hopfield
+
+Interestingly, the **XY-model patched implementation** (from earlier work) achieved:
+- Memory error: 0.398 (better than any Hopfield: 0.64-1.40)
+- Stability: -0.004 drift (excellent)
+- Energy savings: 99.8% (maintained)
+- **Only failing metric**: Self-healing 10.7% (vs Hopfield 46-99%)
+
+**Trade-off**: XY-model has single attractor (poor self-healing) but better preserves written patterns. Hopfield has multiple attractors (good self-healing potential) but patterns interfere due to overlap.
+
+---
+
+## Recommended Next Steps
+
+### Option 1: Return to XY-Model with Focused Improvements
+
+The XY-model may be more suitable for this use case:
+- Already achieves 0.398 memory error (closest to <0.1 target)
+- Excellent stability and energy savings
+- **Focus improvement** on self-healing via:
+  - Stronger coupling (J > 1.0)
+  - Adaptive relaxation based on torsion score
+  - Multi-well potential (add local minima without full Hopfield complexity)
+
+### Option 2: Simpler Hopfield Architecture
+
+If Hopfield is required, use **1D or 2D** pattern space (not 27D):
+- Store complex value in 1 voxel (center only)
+- Weight matrix: 1×1 (trivial) or small neighborhood
+- Other 26 voxels provide passive spatial context via diffusion
+- Expected: Better separation, clearer attractors
+
+### Option 3: Modern Hopfield Networks
+
+Classical Hopfield capacity ~0.14N. Modern variants achieve exponential capacity:
+- Dense associative memory (Krotov & Hopfield 2016)
+- Continuous attractors with normalization
+- Requires different update rules and energy functions
+
+---
+
+## Key Lessons for EchoZero Integration
+
+1. **Self-Healing vs Memory Preservation**: Inverse relationship discovered
+   - Systems with strong attractors (Hopfield) self-heal but lose precision
+   - Systems with weak/single attractors (XY) preserve but don't self-heal
+
+2. **Dimensional Matching Critical**: Pattern dimensionality must match representation dimensionality
+   - 2D patterns → 2D representation (not 27D)
+   - Distributed codes only help if patterns naturally span the space
+
+3. **Energy Savings Architecture Validated**: 99.8% savings achieved and maintained across all implementations
+   - SLOW LOOP concept sound
+   - Möbius gating effective  
+   - Non-blocking operation confirmed
+
+4. **For Production**: Recommend XY-model with improvements OR simplified Hopfield (1-2D)
+   - Both can achieve <0.1 memory error with focused tuning
+   - XY-model closer to goal (0.398 current)
+   - Trade-off: Precision vs self-healing capability
+
+---
+
+*Final Update: 2025-12-05*  
+*Total Implementations: 5 (Hebbian, Pseudo-inv, Phase, Complex, Center)*  
+*Consistent Result: 0-1/5 tests passing across all variants*  
+*Root Cause: 2D→27D dimensional mismatch + Gaussian encoding overlap*  
+*Recommendation: XY-model with targeted self-healing improvements*
