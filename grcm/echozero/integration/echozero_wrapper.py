@@ -21,11 +21,12 @@ Compatible with:
 """
 
 import numpy as np
+import torch
 from dataclasses import dataclass, field
 from typing import Dict, Optional, Any
 
 # Import EchoZero subsystems
-from grcm.echozero.mobius import MobiusLayer
+from grcm.echozero.mobius import MobiusEchoLayer
 from grcm.echozero.spiral import SpiralLattice
 from grcm.echozero.identity.torsion_lattice import TorsionLattice3D
 from grcm.echozero.tachyon import TachyonIntegrationWrapper
@@ -65,11 +66,8 @@ class EchoZeroWrapper:
         self.cfg = config
 
         # Core pipeline components
-        self.mobius = MobiusLayer(hidden_dim=config.dim)
-        self.spiral = SpiralLattice(
-            N=config.lattice_size,
-            dim=config.dim
-        )
+        self.mobius = MobiusEchoLayer(hidden_dim=config.dim)
+        self.spiral = SpiralLattice(hidden_dim=config.dim)
         self.torsion = TorsionLattice3D(
             size=config.lattice_size,
             coupling=1.0,
@@ -127,8 +125,11 @@ class EchoZeroWrapper:
         # FAST LOOP PIPELINE
         # -----------------------------------------------------------
 
+        # Convert numpy to PyTorch for Möbius and Spiral
+        x_torch = torch.from_numpy(x_np).float()
+
         # Step 1: Möbius Echo Layer (topological projection)
-        mobius_out, mobius_metrics = self.mobius(x_np)
+        mobius_out, mobius_metrics = self.mobius(x_torch)
 
         if self.cfg.enable_logging:
             self.logs["mobius_metrics"].append({
@@ -138,14 +139,19 @@ class EchoZeroWrapper:
             })
 
         # Step 2: Spiral Lattice (temporal compression)
-        spiral_out = self.spiral.forward(mobius_out)
+        spiral_out_torch, spiral_metrics = self.spiral.forward(mobius_out)
+
+        # Convert back to numpy for Torsion Lattice (NumPy-based)
+        spiral_out = spiral_out_torch.detach().cpu().numpy()
 
         # Step 3: Torsion Lattice (coherence stabilization)
-        # Convert to complex for torsion lattice
-        torsion_input = spiral_out[..., 0] + 1j * spiral_out[..., 1]
+        # Spiral output is already 2D real, don't extract first 2 components
+        # For now, just use the torsion lattice state for event detection
+        # (Torsion lattice runs independently in background)
 
         # Get torsion lattice state (this is just reading, not modifying)
-        torsion_state = self.torsion.state  # 5×5×5 complex grid
+        # Construct complex state from phases and magnitude
+        torsion_state = self.torsion.m * np.exp(1j * self.torsion.theta)  # 5×5×5 complex grid
 
         # Compute torsion magnitude for logging
         torsion_mag = self._compute_torsion_magnitude(torsion_state)
