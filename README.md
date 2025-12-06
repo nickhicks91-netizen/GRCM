@@ -1,4 +1,4 @@
-# GRCM: Grounded Resonant Consciousness Module
+ECHOZERO Resonant Consciousness Module
 
 [![Python Version](https://img.shields.io/badge/python-3.9%2B-blue)](https://www.python.org/downloads/)
 [![PyTorch](https://img.shields.io/badge/pytorch-2.0%2B-orange)](https://pytorch.org/)
