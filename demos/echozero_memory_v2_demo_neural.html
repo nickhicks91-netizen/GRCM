@@ -535,8 +535,8 @@
         function processNeuralState() {
             state.steps++;
 
-            // Generate state
-            const torsion = Math.random() < 0.05 ?
+            // Generate state (hallucinations are rare: 0.2% = 1 in 500)
+            const torsion = Math.random() < 0.002 ?
                 2.5 + Math.random() * 3 :
                 Math.random() * 1.5;
 
